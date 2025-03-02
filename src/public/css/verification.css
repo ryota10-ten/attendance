@@ -1,0 +1,60 @@
+.header {
+    width: 100%;
+}
+
+.header__inner {
+    background-color: black;
+    padding: 20px 20px;
+}
+
+.header__logo {
+    padding: 5px 5px;
+    display: flex;
+    justify-content: left;
+}
+
+.content {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.detail {
+    text-align: center;
+}
+
+.form__verify {
+    margin: 0 auto;
+    width: 50%;
+}
+
+.form__button {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    border-radius: 5px;
+    border: 1px solid black;
+    padding: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.form__link {
+    text-decoration: none;
+    color: black;
+}
+
+.send__link {
+    text-align: center;
+    margin: 30px auto;
+    
+}
+
+.send__link a {
+    text-decoration: none;
+    color: #0073CC;
+}
+
+.message__status {
+    text-align: center;
+    color: red;
+}
