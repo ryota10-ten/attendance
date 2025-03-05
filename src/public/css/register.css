@@ -1,0 +1,74 @@
+.header {
+    width: 100%;
+}
+
+.header__inner {
+    background-color: black;
+    padding: 20px 20px;
+}
+
+.header__logo {
+    padding: 5px 5px;
+    display: flex;
+    justify-content: left;
+}
+
+.content {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.content__title {
+    text-align: center;
+    padding: 20px;
+    font-size: 36px;
+}
+
+.content__form {
+    margin: 0 auto;
+    width: 50%;
+}
+
+.form__register {
+    padding: 5px;
+}
+
+.form__register--label {
+    display: block;
+    font-size: 24px;
+}
+
+.form__register--item {
+    padding: 5px;
+    width: 100%;
+    font-size: 24px;
+    margin: 5px;
+}
+
+.form__register--button {
+    display: block;
+    margin: 40px 0px;
+    text-align: center;
+    width: 100%;
+    background-color: black;
+    color: #FFF;
+    border-radius: 5px;
+    border: 1px solid black;
+    padding: 10px;
+    font-size: 26px;
+    cursor: pointer;
+}
+
+.content__login {
+    text-align: center;
+}
+
+.content__login--item {
+    text-decoration: none;
+    color: #0073CC;
+    font-size: 20px;
+}
+
+.form__error {
+    color: red;
+}
