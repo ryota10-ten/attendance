@@ -27,22 +27,22 @@
                 <label class="form__register--label">名前</label>
                 <input class="form__register--item" type="text" name="name" value="">
                 <div class="form__error">
-                        @error('name')
+                    @error('name')
                         {{ $message }}
-                        @enderror
+                    @enderror
                 </div>
                 <label class="form__register--label">メールアドレス</label>
                 <input class="form__register--item" type="email" name="email" value="">
                 <div class="form__error">
-                        @error('email')
+                    @error('email')
                         {{ $message }}
-                        @enderror
+                    @enderror
                 </div>
                 <label class="form__register--label">パスワード</label>
                 <input class="form__register--item" type="password" name="password" value="">
                 <div class="form__error">
                     @error('password')
-                    {{ $message }}
+                        {{ $message }}
                     @enderror
                 </div>
                 <label class="form__register--label">パスワード確認</label>
