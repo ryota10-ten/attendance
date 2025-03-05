@@ -37,9 +37,9 @@
 
         <div class="message__status">
             @if (session('message'))
-            <p class="message">
-                {{ session('message') }}
-            </p>
+                <p class="message">
+                    {{ session('message') }}
+                </p>
             @endif
         </div>
     </main>
