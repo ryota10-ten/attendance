@@ -1,3 +1,23 @@
+.header {
+    width: 100%;
+}
+
+.header__inner {
+    background-color: black;
+    padding: 20px 20px;
+}
+
+.header__logo {
+    padding: 5px 5px;
+    display: flex;
+    justify-content: left;
+}
+
+.content {
+    width: 100%;
+    margin: 0 auto;
+}
+
 .content__title {
     text-align: center;
     padding: 20px;
@@ -9,23 +29,23 @@
     width: 50%;
 }
 
-.form__register {
+.form__login {
     padding: 5px;
 }
 
-.form__register--label {
+.form__login--label {
     display: block;
     font-size: 24px;
 }
 
-.form__register--item {
+.form__login--item {
     padding: 5px;
     width: 100%;
     font-size: 24px;
     margin: 5px;
 }
 
-.form__register--button {
+.form__login--button {
     display: block;
     margin: 40px 0px;
     text-align: center;
@@ -39,11 +59,11 @@
     cursor: pointer;
 }
 
-.content__login {
+.content__register {
     text-align: center;
 }
 
-.content__login--item {
+.content__register--item {
     text-decoration: none;
     color: #0073CC;
     font-size: 20px;

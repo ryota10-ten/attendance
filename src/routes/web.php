@@ -24,4 +24,7 @@ Route::get('/email/verify', [VerificationController::class, 'show'])->name('veri
 Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
 Route::get('/email/verification-notification', [VerificationController::class, 'resend'])->name('verification.send');
 
-Route::get('/',[IndexController::class, 'show'])->name('home.show');
+Route::get('/attendance',[IndexController::class, 'show'])->name('home.show');
+
+Route::get('/admin/login', [AdminLoginController::class, 'show'])->name('admin.show');
+Route::post('/admin/login', [AdminLoginController::class, 'login']);
