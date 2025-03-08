@@ -1,0 +1,19 @@
+.header {
+    width: 100%;
+}
+
+.header__inner {
+    background-color: black;
+    padding: 20px 20px;
+}
+
+.header__logo {
+    padding: 5px 5px;
+    display: flex;
+    justify-content: left;
+}
+
+.content {
+    width: 100%;
+    margin: 0 auto;
+}

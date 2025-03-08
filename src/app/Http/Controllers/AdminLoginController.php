@@ -15,13 +15,14 @@ class AdminLoginController extends Controller
     public function login(AdminLoginRequest $request)
     {
         Auth::guard('admin')->attempt($request->only('email', 'password'));
-        
+
         return redirect('/admin/attendance/list');
     }
 
     public function logout()
     {
         Auth::guard('admin')->logout();
+
         return redirect('/admin/login');
     }
 }

@@ -35,8 +35,7 @@ class AdminUsersTableSeeder extends Seeder
             ],
         ];
 
-        foreach ($users as $user)
-        {
+        foreach ($users as $user){
             DB::table('admin_users')->insert([
                 'name' => $user['name'],
                 'email' => $user['email'],
