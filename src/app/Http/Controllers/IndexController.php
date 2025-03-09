@@ -7,6 +7,6 @@ class IndexController extends Controller
 {
     public function show()
     {
-        return view('index');
+        return view('staff.index');
     }
 }

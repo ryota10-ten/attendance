@@ -1,7 +1,7 @@
 @extends('layouts.header')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/verification.css') }}">
+<link rel="stylesheet" href="{{ asset('css/staff/verification.css') }}">
 @endsection
 
 @section('content')

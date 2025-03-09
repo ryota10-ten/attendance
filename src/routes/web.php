@@ -1,10 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\VerificationController;
-use App\Http\Controllers\IndexController;
 use App\Http\Controllers\AdminLoginController;
+use App\Http\Controllers\IndexController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\StaffLoginController;
+use App\Http\Controllers\VerificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,9 @@ Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'
 Route::get('/email/verification-notification', [VerificationController::class, 'resend'])->name('verification.send');
 
 Route::get('/attendance',[IndexController::class, 'show'])->name('home.show');
+
+Route::get('/login',[StaffLoginController::class, 'show'])->name('staff.login');
+Route::post('/login', [StaffLoginController::class, 'login']);
 
 Route::get('/admin/login', [AdminLoginController::class, 'show'])->name('admin.show');
 Route::post('/admin/login', [AdminLoginController::class, 'login']);
