@@ -1,0 +1,44 @@
+.content__title {
+    text-align: center;
+    padding: 20px;
+    font-size: 36px;
+}
+
+.content__form {
+    margin: 0 auto;
+    width: 50%;
+}
+
+.form__login {
+    padding: 5px;
+}
+
+.form__login--label {
+    display: block;
+    font-size: 24px;
+}
+
+.form__login--item {
+    padding: 5px;
+    width: 100%;
+    font-size: 24px;
+    margin: 5px;
+}
+
+.form__login--button {
+    display: block;
+    margin: 40px 0px;
+    text-align: center;
+    width: 100%;
+    background-color: black;
+    color: #FFF;
+    border-radius: 5px;
+    border: 1px solid black;
+    padding: 10px;
+    font-size: 26px;
+    cursor: pointer;
+}
+
+.form__error {
+    color: red;
+}
