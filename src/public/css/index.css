@@ -1,0 +1,82 @@
+.header {
+    width: 100%;
+}
+
+.header__inner {
+    background-color: black;
+    padding: 20px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header__buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.header__buttons a {
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    padding: 0 10px;
+}
+
+.header__button--logout {
+    background-color: black;
+    color: #FFF;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.content {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.content__status {
+    margin: 0 auto;
+    margin-top: 15%;
+    padding: 5px 5px;
+    text-align: center;
+    font-size: 15px;
+    width: 10%;
+    background-color: #C8C8C8;
+    color: #696969;
+    border-radius: 30px;
+}
+
+.content__time {
+    margin: 0 auto;
+    text-align: center;
+    line-height: 0.5;
+}
+
+.currentDate {
+    font-size: 30px;
+}
+
+.currentTime {
+    font-size: 60px;
+    font-weight: bold;
+}
+
+.content__form {
+    margin: 0 auto;
+    width: 50%;
+}
+
+.attendance__button {
+    display: block;
+    margin: 0 auto;
+    background-color: black;
+    color: white;
+    border-radius: 30px;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    padding: 10px 40px;
+}

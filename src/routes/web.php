@@ -25,6 +25,10 @@ Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'
 Route::get('/email/verification-notification', [VerificationController::class, 'resend'])->name('verification.send');
 
 Route::get('/attendance',[IndexController::class, 'show'])->name('home.show');
+Route::post('/attendance/clock-in', [AttendanceController::class, 'clockIn'])->name('attendance.clock-in');
+Route::post('/attendance/clock-out', [AttendanceController::class, 'clockOut'])->name('attendance.clock-out');
+Route::post('/attendance/break-start', [AttendanceController::class, 'startBreak'])->name('attendance.break-start');
+Route::post('/attendance/break-end', [AttendanceController::class, 'endBreak'])->name('attendance.break-end');
 
 Route::get('/admin/login', [AdminLoginController::class, 'show'])->name('admin.show');
 Route::post('/admin/login', [AdminLoginController::class, 'login']);
