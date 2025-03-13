@@ -1,10 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\VerificationController;
-use App\Http\Controllers\IndexController;
 use App\Http\Controllers\AdminLoginController;
+use App\Http\Controllers\IndexController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\StaffLoginController;
+use App\Http\Controllers\VerificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,9 @@ Route::post('/attendance/clock-in', [AttendanceController::class, 'clockIn'])->n
 Route::post('/attendance/clock-out', [AttendanceController::class, 'clockOut'])->name('attendance.clock-out');
 Route::post('/attendance/break-start', [AttendanceController::class, 'startBreak'])->name('attendance.break-start');
 Route::post('/attendance/break-end', [AttendanceController::class, 'endBreak'])->name('attendance.break-end');
+
+Route::get('/login',[StaffLoginController::class, 'show'])->name('staff.login');
+Route::post('/login', [StaffLoginController::class, 'login']);
 
 Route::get('/admin/login', [AdminLoginController::class, 'show'])->name('admin.show');
 Route::post('/admin/login', [AdminLoginController::class, 'login']);
