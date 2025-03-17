@@ -13,20 +13,40 @@ class IndexController extends Controller
     {
         $date = Carbon::now()->isoFormat('YYYY年M月D日(ddd)');
         $time = Carbon::now()->format('H:i');
-        $attendance = Attendance::where('user_id', Auth::id())
-            ->whereDate('clock_in', Carbon::today())
-            ->first();
+        $user = Auth::guard('users')->user();
 
-        return view('index',compact('date','time','attendance'));
+        $attendance = Attendance::where('user_id', $user->id)
+        ->whereDate('clock_in', Carbon::today())
+        ->latest('clock_in')
+        ->first();
+
+        $status = 'not_started';
+
+        if ($attendance) {
+            if (is_null($attendance->clock_out)) {
+                $onBreak = Breaks::where('attendance_id', $attendance->id)
+                    ->whereNull('end_time')
+                    ->exists();
+
+                $status = $onBreak ? 'on_break' : 'working';
+            }
+        }
+
+        return view('staff.index', compact('date', 'time', 'status'));
     }
 
     public function clockIn()
     {
-        $userId = Auth::id();
+        $userId = Auth::guard('users')->id();
 
-        $existingAttendance = Attendance::where('user_id', $userId)
+        $latestAttendance = Attendance::where('user_id', $userId)
             ->whereDate('clock_in', Carbon::today())
+            ->latest('clock_in')
             ->first();
+
+        if ($latestAttendance && is_null($latestAttendance->clock_out)) {
+            return redirect()->route('home.show');
+        }
 
         Attendance::create([
             'user_id' => $userId,
@@ -38,25 +58,32 @@ class IndexController extends Controller
 
     public function clockOut()
     {
-        $attendance = Attendance::where('user_id', Auth::id())
+        $attendance = Attendance::where('user_id', Auth::guard('users')->id())
             ->whereDate('clock_in', Carbon::today())
             ->whereNull('clock_out')
+            ->latest('clock_in')
             ->first();
-        $attendance->update(['clock_out' => Carbon::now()]);
+
+        if ($attendance) {
+            $attendance->update(['clock_out' => Carbon::now()]);
+        }
 
         return redirect()->route('home.show');
     }
 
     public function startBreak()
     {
-        $attendance = Attendance::where('user_id', Auth::id())
+        $attendance = Attendance::where('user_id', Auth::guard('users')->id())
             ->whereDate('clock_in', Carbon::today())
             ->whereNull('clock_out')
             ->first();
-        Breaks::create([
-            'attendance_id' => $attendance->id,
-            'start_time' => Carbon::now(),
-        ]);
+
+        if ($attendance) {
+            Breaks::create([
+                'attendance_id' => $attendance->id,
+                'start_time' => Carbon::now(),
+            ]);
+        }
 
         return redirect()->route('home.show');
     }
@@ -68,7 +95,10 @@ class IndexController extends Controller
             })
             ->whereNull('end_time')
             ->first();
-        $break->update(['end_time' => Carbon::now()]);
+        
+        if ($break) {
+            $break->update(['end_time' => Carbon::now()]);
+        }
 
         return redirect()->route('home.show');
     }

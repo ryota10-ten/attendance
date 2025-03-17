@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inika:wght@400;700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Serif+JP:wght@200..900&display=swap" rel="stylesheet">
     <title>CoachTech</title>
 </head>
-<body>
+<body class="body">
     <header class="header">
         <div class="header__inner">
             <div class="header__logo">
@@ -29,42 +29,38 @@
     </header>
     <main class="content">
         <div class="content__status">
-            勤務外
+            @if ($status == 'not_started')
+                勤務外
+            @elseif ($status == 'working')
+                勤務中
+            @elseif ($status == 'on_break')
+                休憩中
+            @endif
         </div>
         <div class="content__time">
             <p class="currentDate">{{ $date }}</p>
             <p class="currentTime">{{ $time }}</p>
         </div>
         <div class="content__form">
-            @if ($attendance)
-                @if ($attendance->status == 'not_started')
-                    <form action="{{ route('attendance.clock-in') }}" method="POST">
-                        @csrf
-                        <button class="attendance__button" type="submit">
-                            出勤
-                        </button>
-                    </form>
-                @elseif ($attendance->status == 'working')
-                    <form action="{{ route('attendance.clock-out') }}" method="POST">
-                        @csrf
-                        <button class="attendance__button" type="submit">
-                            退勤
-                        </button>
-                    </form>
-                    <form action="{{ route('attendance.break-start') }}" method="POST">
-                        @csrf
-                        <button class="attendance__button" type="submit">
-                            休憩入
-                        </button>
-                    </form>
-                @elseif ($attendance->status == 'on_break')
-                    <form action="{{ route('attendance.break-end') }}" method="POST">
-                        @csrf
-                        <button class="attendance__button" type="submit">
-                            休憩戻
-                        </button>
-                    </form>
-                @endif
+            @if ($status == 'not_started')
+                <form action="{{ route('attendance.clock-in') }}" method="POST">
+                    @csrf
+                    <button class="attendance__button" type="submit">出勤</button>
+                </form>
+            @elseif ($status == 'working')
+                <form action="{{ route('attendance.clock-out') }}" method="POST">
+                    @csrf
+                    <button class="attendance__button" type="submit">退勤</button>
+                </form>
+                <form action="{{ route('attendance.break-start') }}" method="POST">
+                    @csrf
+                    <button class="attendance__button--break" type="submit">休憩入</button>
+                </form>
+            @elseif ($status == 'on_break')
+                <form action="{{ route('attendance.break-end') }}" method="POST">
+                    @csrf
+                    <button class="attendance__button" type="submit">休憩戻</button>
+                </form>
             @endif
         </div>
     </main>
