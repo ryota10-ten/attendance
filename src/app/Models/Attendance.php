@@ -11,6 +11,11 @@ class Attendance extends Model
     use HasFactory;
     protected $fillable = ['user_id', 'clock_in', 'clock_out'];
 
+    const NOT_STARTED = 'not_started';
+    const ON_BREAK = 'on_break';
+    const WORKING = 'working';
+    const FINISHED = 'finished';
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -25,12 +30,20 @@ class Attendance extends Model
     {
         if ($this->clock_in && !$this->clock_out) {
             if ($this->breaks()->whereNull('end_time')->exists()) {
-                return 'on_break';
+                return self::ON_BREAK ;
             }
-            return 'working';
+            return self::WORKING;
         } elseif ($this->clock_in && $this->clock_out) {
-            return 'finished';
+            return self::FINISHED;
         }
-        return 'not_started';
+        return self::NOT_STARTED;
+    }
+
+    public static function getTodaysRecord($user_id)
+    {
+        return  Attendance::where('user_id', $user_id)
+            ->whereDate('clock_in', Carbon::today())
+            ->latest('clock_in')
+            ->first();
     }
 }

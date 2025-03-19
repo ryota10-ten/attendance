@@ -29,11 +29,11 @@
     </header>
     <main class="content">
         <div class="content__status">
-            @if ($status == 'not_started')
+            @if ($status === Attendance::NOT_STARTED)
                 勤務外
-            @elseif ($status == 'working')
+            @elseif ($status === Attendance::WORKING)
                 勤務中
-            @elseif ($status == 'on_break')
+            @elseif ($status === Attendance::ON_BREAK)
                 休憩中
             @endif
         </div>
@@ -42,12 +42,12 @@
             <p class="currentTime">{{ $time }}</p>
         </div>
         <div class="content__form">
-            @if ($status == 'not_started')
+            @if ($status === Attendance::NOT_STARTED)
                 <form action="{{ route('attendance.clock-in') }}" method="POST">
                     @csrf
                     <button class="attendance__button" type="submit">出勤</button>
                 </form>
-            @elseif ($status == 'working')
+            @elseif ($status === Attendance::WORKING)
                 <form action="{{ route('attendance.clock-out') }}" method="POST">
                     @csrf
                     <button class="attendance__button" type="submit">退勤</button>
@@ -56,7 +56,7 @@
                     @csrf
                     <button class="attendance__button--break" type="submit">休憩入</button>
                 </form>
-            @elseif ($status == 'on_break')
+            @elseif ($status === Attendance::ON_BREAK)
                 <form action="{{ route('attendance.break-end') }}" method="POST">
                     @csrf
                     <button class="attendance__button" type="submit">休憩戻</button>

@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Attendance;
 use App\Models\Breaks;
-use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class IndexController extends Controller
 {
@@ -15,12 +15,9 @@ class IndexController extends Controller
         $time = Carbon::now()->format('H:i');
         $user = Auth::guard('users')->user();
 
-        $attendance = Attendance::where('user_id', $user->id)
-        ->whereDate('clock_in', Carbon::today())
-        ->latest('clock_in')
-        ->first();
+        $attendance = Attendance::getTodaysRecord($user->id);
 
-        $status = 'not_started';
+        $status = Attendance::NOT_STARTED;
 
         if ($attendance) {
             if (is_null($attendance->clock_out)) {
@@ -28,7 +25,7 @@ class IndexController extends Controller
                     ->whereNull('end_time')
                     ->exists();
 
-                $status = $onBreak ? 'on_break' : 'working';
+                $status = $onBreak ? Attendance::ON_BREAK : Attendance::WORKING;
             }
         }
 
@@ -39,10 +36,7 @@ class IndexController extends Controller
     {
         $userId = Auth::guard('users')->id();
 
-        $latestAttendance = Attendance::where('user_id', $userId)
-            ->whereDate('clock_in', Carbon::today())
-            ->latest('clock_in')
-            ->first();
+        $latestAttendance = Attendance::getTodaysRecord($userId);
 
         if ($latestAttendance && is_null($latestAttendance->clock_out)) {
             return redirect()->route('home.show');
