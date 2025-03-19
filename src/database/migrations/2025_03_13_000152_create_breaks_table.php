@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAdminUsersTable extends Migration
+class CreateBreaksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateAdminUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('admin_users', function (Blueprint $table) {
+        Schema::create('breaks', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
+            $table->foreignId('attendance_id')->constrained()->onDelete('cascade');
+            $table->dateTime('start_time')->nullable();  // 休憩開始時間
+            $table->dateTime('end_time')->nullable();    // 休憩終了時間
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateAdminUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('admin_users');
+        Schema::dropIfExists('breaks');
     }
 }

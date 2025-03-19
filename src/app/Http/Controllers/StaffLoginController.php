@@ -17,7 +17,7 @@ class StaffLoginController extends Controller
     {
         Auth::guard('users')->attempt($request->only('email', 'password'));
 
-        return redirect('/attendance');
+        return redirect()->route('home.show');;
     }
 
     public function logout()
