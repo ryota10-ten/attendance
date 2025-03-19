@@ -9,7 +9,7 @@ class VerificationController extends Controller
 {
     public function show()
     {
-        return view('verification');
+        return view('staff.verification');
     }
 
     public function verify(Request $request)

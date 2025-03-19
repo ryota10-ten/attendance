@@ -1,7 +1,7 @@
 @extends('layouts.header')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/admin/login.css') }}">
+<link rel="stylesheet" href="{{ asset('css/staff/login.css') }}">
 @endsection
 
 @section('content')
@@ -10,7 +10,7 @@
     ログイン
 </h1>
 <div class="content__form">
-    <form class="form__login" action="/admin/login" method="post">
+    <form class="form__login" action="/login" method="post">
         @csrf
         <label class="form__login--label">メールアドレス</label>
         <input class="form__login--item" type="email" name="email" value="{{ old('email') }}" >
@@ -25,10 +25,15 @@
             @error('password')
                 {{ $message }}
             @enderror
-        </div>
+            </div>
         <button class="form__login--button" type="submit">
-            管理者ログインする
+            ログインする
         </button>
     </form>
+</div>
+<div class="content__register">
+    <a class="content__link" href="/register">
+        会員登録はこちら
+    </a>
 </div>
 @endsection
