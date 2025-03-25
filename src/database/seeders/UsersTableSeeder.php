@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
-class StaffUsersTableSeeder extends Seeder
+class UsersTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -19,19 +19,19 @@ class StaffUsersTableSeeder extends Seeder
         $users =
         [
             [
-                'name' => 'test1',
-                'email' => 'test1@example.com',
+                'name' => 'staff1',
+                'email' => 'staff1@example.com',
                 'password' => 'testtest',
 
             ],
             [
-                'name' => 'test2',
-                'email' => 'test2@example.com',
+                'name' => 'staff2',
+                'email' => 'staff2@example.com',
                 'password' => 'testtest',
             ],
             [
-                'name' => 'test3',
-                'email' => 'test3@example.com',
+                'name' => 'staff3',
+                'email' => 'staff3@example.com',
                 'password' => 'testtest',
             ],
         ];

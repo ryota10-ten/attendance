@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminIndexController;
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\RegisterController;
@@ -36,3 +37,6 @@ Route::post('/login', [StaffLoginController::class, 'login']);
 
 Route::get('/admin/login', [AdminLoginController::class, 'show'])->name('admin.show');
 Route::post('/admin/login', [AdminLoginController::class, 'login']);
+
+Route::get('/admin/attendance/list', [AdminIndexController::class,'list'])->name('admin.list');
+Route::post('/attendance/change-date', [AdminIndexController::class, 'changeDate'])->name('admin.changeDate');
