@@ -1,10 +1,13 @@
-@extends('layouts.header-list')
+@extends('layouts.header')
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/admin/list.css') }}">
 @endsection
 
+@section('body_class', 'content__page')
+
 @section('content')
+
 <div class=title>
     <h2 class="title__text">
         {{ \Carbon\Carbon::parse($date)->format('Y年m月d日') }}の勤怠
@@ -25,18 +28,11 @@
                 <img class="calender__icon" src="{{ asset('img/calender.png') }}" alt="カレンダーアイコン" onclick="openCalendar()">
                 <input type="date" name="date" value="{{ old('date', $date ?? now()->format('Y-m-d')) }}" id="datePicker" class="calender__input" onchange="this.form.submit()">
             </label>
-
-            <script>
-                function openCalendar() {
-                    document.getElementById('datePicker').showPicker();
-                }
-            </script>
         </form>
     </div>
     <form method="POST" action="{{ route('admin.changeDate') }}">
         @csrf
         <input type="hidden" name="date" value="{{ $date }}">
-
         <button type="submit" name="action" value="next" class="calender__after">
             翌日→
         </button>
@@ -82,12 +78,17 @@
                 {{ $attendance['work_time'] }}
             </th>
             <td class="table__data">
-                詳細
+                <a class="table__data" href="/attendance/{{ $attendance['id'] }}">
+                    詳細
+                </a>
             </th>
         </tr>
         @endforeach
     </table>
 </div>
-
-
+<script>
+    function openCalendar() {
+        document.getElementById('datePicker').showPicker();
+    }
+</script>
 @endsection

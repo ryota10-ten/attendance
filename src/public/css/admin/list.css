@@ -1,3 +1,7 @@
+.content__page {
+    background-color: #F0EFF2;
+}
+
 .title {
     border-left: 5px solid;
     margin: 5% auto;
@@ -78,10 +82,19 @@
     text-align: center;
     border-bottom: 3px solid #E1E1E1;
     padding: 10px 0;
+    color: #737373;
 }
 
 .table__data {
     text-align: center;
     border-bottom: 2px solid #E1E1E1;
     padding: 10px 0;
+}
+
+.table__data a {
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+    border: none;
+    cursor: pointer;
 }

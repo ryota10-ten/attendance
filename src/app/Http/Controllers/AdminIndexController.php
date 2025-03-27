@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attendance;
-use App\Models\Breaks;
-use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,15 +14,18 @@ class AdminIndexController extends Controller
         $user = Auth::guard('admin')->user();
         $date = session('selected_date', Carbon::today()->format('Y-m-d'));
         $attendances = Attendance::whereDate('clock_in', $date)
-        ->with(['user', 'breaks'])
-        ->get()
-        ->map(fn($attendance) => [
-                'name' => $attendance->user->name,
-                'clock_in' => $this->formatTime($attendance->clock_in),
-                'clock_out' => $this->formatTime($attendance->clock_out),
-                'break_time' => $this->formatMinutes($this->calculateBreakTime($attendance)),
-                'work_time' => $this->formatMinutes($this->calculateWorkTime($attendance)),
-            ]);
+            ->with(['user', 'breaks'])
+            ->get()
+            ->map(
+                fn($attendance) => [
+                    'id' => $attendance->user->id,
+                    'name' => $attendance->user->name,
+                    'clock_in' => $this->formatTime($attendance->clock_in),
+                    'clock_out' => $this->formatTime($attendance->clock_out),
+                    'break_time' => $this->formatMinutes($this->calculateBreakTime($attendance)),
+                    'work_time' => $this->formatMinutes($this->calculateWorkTime($attendance)),
+                ]
+            );
 
         return view('admin.list', compact('date','attendances'));
     }

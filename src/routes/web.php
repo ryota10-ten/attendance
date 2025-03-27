@@ -34,9 +34,11 @@ Route::post('/attendance/break-end', [IndexController::class, 'endBreak'])->name
 
 Route::get('/login',[StaffLoginController::class, 'show'])->name('staff.login');
 Route::post('/login', [StaffLoginController::class, 'login']);
+Route::post('/logout', [StaffLoginController::class, 'logout']);
 
 Route::get('/admin/login', [AdminLoginController::class, 'show'])->name('admin.show');
 Route::post('/admin/login', [AdminLoginController::class, 'login']);
+Route::post('/admin/logout', [AdminLoginController::class, 'logout']);
 
 Route::get('/admin/attendance/list', [AdminIndexController::class,'list'])->name('admin.list');
 Route::post('/attendance/change-date', [AdminIndexController::class, 'changeDate'])->name('admin.changeDate');

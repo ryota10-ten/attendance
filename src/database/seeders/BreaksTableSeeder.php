@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Breaks;
 use App\Models\Attendance;
+use App\Models\Breaks;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
