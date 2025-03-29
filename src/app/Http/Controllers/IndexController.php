@@ -26,6 +26,8 @@ class IndexController extends Controller
                     ->exists();
 
                 $status = $onBreak ? Attendance::ON_BREAK : Attendance::WORKING;
+            } else {
+                $status = Attendance::FINISHED;
             }
         }
 

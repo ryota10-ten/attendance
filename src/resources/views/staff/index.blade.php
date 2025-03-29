@@ -16,6 +16,8 @@
             勤務中
         @elseif ($status === Attendance::ON_BREAK)
             休憩中
+        @elseif ($status === Attendance::FINISHED)
+            退勤済
         @endif
     </div>
     <div class="content__time">
@@ -42,6 +44,8 @@
                 @csrf
                 <button class="attendance__button" type="submit">休憩戻</button>
             </form>
+        @elseif ($status === Attendance::FINISHED)
+            <h2 class="attendance__text">お疲れさまでした</h2>
         @endif
     </div>
 </body>
