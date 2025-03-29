@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminIndexController;
 use App\Http\Controllers\AdminLoginController;
+use App\Http\Controllers\AttendanceListController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\StaffLoginController;
@@ -42,3 +43,6 @@ Route::post('/admin/logout', [AdminLoginController::class, 'logout']);
 
 Route::get('/admin/attendance/list', [AdminIndexController::class,'list'])->name('admin.list');
 Route::post('/attendance/change-date', [AdminIndexController::class, 'changeDate'])->name('admin.changeDate');
+
+Route::get('/attendance/list', [AttendanceListController::class,'list'])->name('staff.list');
+Route::post('/attendance/change-date', [AttendanceListController::class, 'changeDate'])->name('staff.changeDate');
