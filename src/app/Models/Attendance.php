@@ -46,4 +46,96 @@ class Attendance extends Model
             ->latest('clock_in')
             ->first();
     }
+
+    public static function getAttendanceStaff($date)
+    {
+        return self::whereDate('clock_in', $date)
+            ->with(['user', 'breaks'])
+            ->get()
+            ->map(fn($attendance) => $attendance->formatForAttendanceList());
+    }
+
+    public function formatForAttendanceList()
+    {
+        return [
+            'id' => $this->user->id,
+            'name' => $this->user->name,
+            'clock_in' => self::formatTime($this->clock_in),
+            'clock_out' => self::formatTime($this->clock_out),
+            'break_time' => self::formatMinutes(self::calculateBreakTime($this)),
+            'work_time' => self::formatMinutes(self::calculateWorkTime($this)),
+        ];
+    }
+
+    public static function getAttendancesForUser($userId, $year, $month)
+    {
+        return self::where('user_id', $userId)
+            ->whereYear('clock_in', $year)
+            ->whereMonth('clock_in', $month)
+            ->with(['breaks'])
+            ->get()
+            ->map(fn($attendance) => $attendance->formatForList());
+    }
+
+
+    public function formatForList()
+    {
+        return [
+            'id' => $this->id,
+            'date' => self::formatDayName($this->clock_in),
+            'clock_in' => self::formatTime($this->clock_in),
+            'clock_out' => self::formatTime($this->clock_out),
+            'break_time' => self::formatMinutes(self::calculateBreakTime($this)),
+            'work_time' => self::formatMinutes(self::calculateWorkTime($this)),
+        ];
+    }
+
+    private static function formatDayName($date)
+    {
+        if (!$date) {
+            return '-';
+        }
+
+        $carbonDate = Carbon::parse($date);
+        $shortDay = mb_substr($carbonDate->dayName, 0, 1);
+
+        return $carbonDate->format('m/d') . '（' . $shortDay . '）';
+    }
+
+    private static function formatTime($time)
+    {
+        return $time ? Carbon::parse($time)->format('H:i') : '-';
+    }
+
+    private static function formatMinutes($minutes)
+    {
+        return $minutes > 0 ? sprintf('%02d:%02d', intdiv($minutes, 60), $minutes % 60) : '-';
+    }
+
+    private static function calculateBreakTime($attendance)
+    {
+        if (!$attendance->breaks || $attendance->breaks->isEmpty()) {
+            return 0;
+        }
+
+        return $attendance->breaks->sum(fn($break) =>
+            ($break->start_time && $break->end_time) 
+                ? Carbon::parse($break->end_time)->diffInMinutes(Carbon::parse($break->start_time)) 
+                : 0
+        );
+    }
+
+    private static function calculateWorkTime($attendance)
+    {
+        if (!$attendance->clock_in || !$attendance->clock_out) {
+            return 0;
+        }
+
+        $totalMinutes = Carbon::parse($attendance->clock_out)
+            ->diffInMinutes(Carbon::parse($attendance->clock_in));
+        $breakMinutes = self::calculateBreakTime($attendance);
+
+        return max($totalMinutes - $breakMinutes, 0);
+    }
+
 }

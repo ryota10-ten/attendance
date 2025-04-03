@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inika:wght@400;700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Serif+JP:wght@200..900&display=swap" rel="stylesheet">
 </head>
-<body class="@yield('body_class')">
+<body class="@auth content__page @endauth">
     <header class="header">
         <div class="header__inner">
             <div class="header__logo">

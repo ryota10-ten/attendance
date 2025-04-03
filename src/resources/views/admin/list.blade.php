@@ -4,8 +4,6 @@
 <link rel="stylesheet" href="{{ asset('css/admin/list.css') }}">
 @endsection
 
-@section('body_class', 'content__page')
-
 @section('content')
 
 <div class=title>

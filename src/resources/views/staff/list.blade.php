@@ -4,10 +4,7 @@
 <link rel="stylesheet" href="{{ asset('css/staff/list.css') }}">
 @endsection
 
-@section('body_class', 'content__page')
-
 @section('content')
-
 <div class=title>
     <h2 class="title__text">
         勤怠一覧
