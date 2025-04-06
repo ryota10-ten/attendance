@@ -5,7 +5,6 @@
 @endsection
 
 @section('content')
-
 <h1 class="content__title">
     ログイン
 </h1>

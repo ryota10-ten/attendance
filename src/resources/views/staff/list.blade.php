@@ -1,38 +1,37 @@
 @extends('layouts.header')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/admin/list.css') }}">
+<link rel="stylesheet" href="{{ asset('css/staff/list.css') }}">
 @endsection
 
 @section('content')
-
 <div class=title>
     <h2 class="title__text">
-        {{ \Carbon\Carbon::parse($date)->format('Y年m月d日') }}の勤怠
+        勤怠一覧
     </h2>
 </div>
 <div class=calender>
-    <form method="POST" action="{{ route('admin.changeDate') }}">
+    <form method="POST" action="{{ route('staff.changeDate') }}">
         @csrf
-        <input type="hidden" name="date" value="{{ $date }}">
+        <input type="hidden" name="month" value="{{ $selectedMonth }}">
         <button type="submit" name="action" value="prev" class="calender__before">
-            ←前日
+            ←前月
         </button>
     </form>
     <div class="calender__date">
-        <form method="POST" action="{{ route('admin.changeDate') }}">
+        <form method="POST" action="{{ route('staff.changeDate') }}">
             @csrf
             <label class="calender__label">
                 <img class="calender__icon" src="{{ asset('img/calender.png') }}" alt="カレンダーアイコン" onclick="openCalendar()">
-                <input type="date" name="date" value="{{ old('date', $date ?? now()->format('Y-m-d')) }}" id="datePicker" class="calender__input" onchange="this.form.submit()">
+                <input type="month" name="month" value="{{ old('month', $selectedMonth ?? now()->format('Y-m')) }}" id="datePicker" class="calender__input" onchange="this.form.submit()">
             </label>
         </form>
     </div>
-    <form method="POST" action="{{ route('admin.changeDate') }}">
+    <form method="POST" action="{{ route('staff.changeDate') }}">
         @csrf
-        <input type="hidden" name="date" value="{{ $date }}">
+        <input type="hidden" name="month" value="{{ $selectedMonth }}">
         <button type="submit" name="action" value="next" class="calender__after">
-            翌日→
+            翌月→
         </button>
     </form>
 </div>
@@ -40,7 +39,7 @@
     <table class="attendance__table">
         <tr>
             <th class="table__header">
-                名前
+                日付
             </th>
             <th class="table__header">
                 出勤
@@ -61,7 +60,7 @@
         @foreach ($attendances as $attendance)
         <tr>
             <td class="table__data">
-                {{ $attendance['name'] }}
+                {{ $attendance['date'] }}
             </td>
             <td class="table__data">
                 {{ $attendance['clock_in'] }}
