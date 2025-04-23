@@ -14,4 +14,9 @@ class Breaks extends Model
     {
         return $this->belongsTo(Attendance::class);
     }
+
+    protected $casts = [
+        'start_time' => 'datetime',
+        'end_time' => 'datetime',
+    ];
 }
