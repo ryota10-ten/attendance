@@ -31,7 +31,6 @@ class Attendance extends Model
         return $this->hasMany(NewAttendance::class);
     }
 
-
     public function getStatusAttribute()
     {
         if ($this->clock_in && !$this->clock_out) {
@@ -82,7 +81,6 @@ class Attendance extends Model
             ->get()
             ->map(fn($attendance) => $attendance->formatForList());
     }
-
 
     public function formatForList()
     {
@@ -148,5 +146,4 @@ class Attendance extends Model
         'clock_in' => 'datetime',
         'clock_out' => 'datetime',
     ];
-
 }

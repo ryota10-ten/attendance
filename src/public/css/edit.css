@@ -86,3 +86,7 @@ input[type="time"].icon-del {
     color: red;
     text-align: right;
 }
+
+.form__errors {
+    color: red;
+}

@@ -4,12 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
 
 class NewAttendance extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id', 'attendance_id', 'new_clock_in', 'new_clock_out','new_note','status'];
+    protected $fillable = ['user_id', 'attendance_id', 'new_clock_in', 'new_clock_out', 'new_note', 'status'];
 
     public function user()
     {
@@ -26,10 +25,20 @@ class NewAttendance extends Model
         return $this->belongsTo(Attendance::class);
     }
 
+    public static function fetchPendingByAttendanceId($attendance_id)
+    {
+        return self::with('new_breaks')
+            ->where('attendance_id', $attendance_id)
+            ->where('status', 0)
+            ->first();
+    }
+
     protected $casts = [
         'status' => 'boolean',
         'new_clock_in' => 'datetime',
         'new_clock_out' => 'datetime',
     ];
 
+    const STATUS_PENDING = 0;
+    const STATUS_APPROVED = 1;
 }

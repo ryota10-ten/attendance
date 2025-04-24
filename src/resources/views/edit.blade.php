@@ -12,16 +12,24 @@
 </div>
 
 <div class=content__table>
-    
     <form class="form__correct" method="post" action="{{ route('staff.application', ['id' => $attendance->id]) }}">
         @csrf
+        @if ($errors->any())
+            <div class="form__errors">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <table class=table__detail>
             <colgroup>
-            <col class="col1">
-            <col class="col2">
-            <col class="col3">
-            <col class="col4">
-            <col class="col5">
+                <col class="col1">
+                <col class="col2">
+                <col class="col3">
+                <col class="col4">
+                <col class="col5">
             </colgroup>
             <tr class=table__row>
                 <th class=table__header>
@@ -38,7 +46,8 @@
                 <td class=table__data>
                     {{ $attendance['clock_in']->format('Y年') }}
                 </td>
-                <td>
+                <td class="table__data">
+                    &nbsp;
                 </td>
                 <td class=table__data>
                     {{ $attendance['clock_in']->format('n月j日') }}
@@ -50,7 +59,7 @@
                 </th>
                 <td class=table__data>
                     @if ($pendingFixRequest)
-                        {{ \Carbon\Carbon::parse($new_attendance['new_clock_in'])->format('H:i')}}
+                        {{ $new_attendance['new_clock_in']->format('H:i')}}
                     @else
                         <input type="time" class="icon-del" name="new_clock_in"
                         value="{{ old('new_clock_in',$attendance['clock_in']->format('H:i')) }}">
@@ -70,29 +79,31 @@
             </tr>
             @if ($pendingFixRequest)
                 @foreach ($new_attendance->new_breaks as $i => $break)
-                <tr class="table__row">
-                    <th class="table__header">
-                        休憩{{ $loop->iteration }}
-                    </th>
-                    <td class="table__data">
-                        {{ $break['new_start_time']->format('H:i')}}
-                    </td>
-                    <td class="table__data">〜</td>
-                    <td class="table__data">
-                        {{ $break['new_end_time']->format('H:i')}}
-                    </td>
-                </tr>
+                    <tr class="table__row">
+                        <th class="table__header">
+                            休憩{{ $loop->iteration }}
+                        </th>
+                        <td class="table__data">
+                            {{ $break['new_start_time']->format('H:i')}}
+                        </td>
+                        <td class="table__data">
+                            〜
+                        </td>
+                        <td class="table__data">
+                            {{ $break['new_end_time']->format('H:i')}}
+                        </td>
+                    </tr>
                 @endforeach
                 <tr class="table__row">
                     <th class="table__header">
                         休憩{{ $new_breaksCount + 1 }}
                     </th>
                     <td class="table__data">
-
+                        &nbsp;
                     </td>
                     <td class="table__data">〜</td>
                     <td class="table__data">
-
+                        &nbsp;
                     </td>
                 </tr>
                 <tr class=table__row>
@@ -105,19 +116,21 @@
                 </tr>
             @else
                 @foreach ($attendance->breaks as $i => $break)
-                <tr class="table__row">
-                    <th class="table__header">
-                        休憩{{ $loop->iteration }}
-                        <input type="hidden" name="new_breaks[{{ $i }}][break_id]">
-                    </th>
-                    <td class="table__data">
-                        <input type="time" class="icon-del" name="new_breaks[{{ $i }}][start_time]" value="{{ old('new_breaks.$i.start_time', $break['start_time']->format('H:i')) }}">
-                    </td>
-                    <td class="table__data">〜</td>
-                    <td class="table__data">
-                        <input type="time" class="icon-del" name="new_breaks[{{ $i }}][end_time]" value="{{ old('new_breaks.$i.end_time', $break['end_time']->format('H:i')) }}">
-                    </td>
-                </tr>
+                    <tr class="table__row">
+                        <th class="table__header">
+                            休憩{{ $loop->iteration }}
+                            <input type="hidden" name="new_breaks[{{ $i }}][break_id]">
+                        </th>
+                        <td class="table__data">
+                            <input type="time" class="icon-del" name="new_breaks[{{ $i }}][start_time]" value="{{ old('new_breaks.$i.start_time', $break['start_time']->format('H:i')) }}">
+                        </td>
+                        <td class="table__data">
+                            〜
+                        </td>
+                        <td class="table__data">
+                            <input type="time" class="icon-del" name="new_breaks[{{ $i }}][end_time]" value="{{ old('new_breaks.$i.end_time', $break['end_time']->format('H:i')) }}">
+                        </td>
+                    </tr>
                 @endforeach
                 <tr class="table__row">
                     <th class="table__header">
@@ -127,7 +140,9 @@
                     <td class="table__data">
                         <input type="time" class="icon-del" name="new_breaks_add[{{ $breaksCount + 1 }}][start_time]" value="">
                     </td>
-                    <td class="table__data">〜</td>
+                    <td class="table__data">
+                        〜
+                    </td>
                     <td class="table__data">
                         <input type="time" class="icon-del" name="new_breaks_add[{{ $breaksCount + 1 }}][end_time]" value="">
                     </td>

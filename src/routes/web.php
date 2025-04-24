@@ -48,5 +48,5 @@ Route::post('/attendance/change-date', [AdminIndexController::class, 'changeDate
 Route::get('/attendance/list', [AttendanceListController::class,'list'])->name('staff.list');
 Route::post('/attendance/change-date', [AttendanceListController::class, 'changeDate'])->name('staff.changeDate');
 
-Route::get('/attendance/{id}',[AttendanceEditController::class,'detail']);
+Route::get('/attendance/{id}',[AttendanceEditController::class,'detail'])->name('staff.detail');
 Route::post('/attendance/{id}',[AttendanceEditController::class,'store'])->name('staff.application');

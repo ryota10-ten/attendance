@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EditRequest;
 use App\Models\Attendance;
-use App\Models\Breaks;
 use App\Models\NewAttendance;
-use App\Models\NewBreak;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -19,20 +18,19 @@ class AttendanceEditController extends Controller
 
         $attendance = Attendance::with(['breaks'])->findOrFail($attendance_id);
         $breaksCount = $attendance->breaks->count();
-        $pendingFixRequest = $attendance->fixRequests()->where('status', '0')->first();
+        $pendingFixRequest = $attendance->fixRequests()
+            ->where('status', NewAttendance::STATUS_PENDING)
+            ->first();
         $new_attendance = null;
         $new_breaksCount = null;
         if($pendingFixRequest){
-            $new_attendance = NewAttendance::with(['new_breaks'])
-                ->where('attendance_id', $attendance_id)
-                ->where('status', 0)
-                ->first();
+            $new_attendance = NewAttendance::fetchPendingByAttendanceId($attendance_id);
             $new_breaksCount =$new_attendance->new_breaks->count();
         }
         return view('edit',compact('staff','attendance','breaksCount','pendingFixRequest','new_attendance','new_breaksCount'));
     }
 
-    public function store(Request $request, $id)
+    public function store(EditRequest $request, $id)
     {
         $staff = Auth::guard('users')->user();
         $attendance = Attendance::findOrFail($id);
@@ -48,7 +46,7 @@ class AttendanceEditController extends Controller
             'new_clock_in'  => $new_clock_in,
             'new_clock_out' => $new_clock_out,
             'new_note'      => $request->input('new_note'),
-            'status'        => 0,
+            'status'        => NewAttendance::STATUS_PENDING,
         ];
         $fixRequest = NewAttendance::create($new_attendance);
 
