@@ -29,7 +29,7 @@ class NewAttendance extends Model
     {
         return self::with('new_breaks')
             ->where('attendance_id', $attendance_id)
-            ->where('status', 0)
+            ->where('status', self::STATUS_PENDING)
             ->first();
     }
 
