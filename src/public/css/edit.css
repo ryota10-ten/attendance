@@ -1,0 +1,92 @@
+.title {
+    border-left: 5px solid;
+    margin: 5% auto;
+    width: 70%;
+}
+
+.title__text {
+    padding-left: 10px;
+}
+
+.content__table {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.col1 {
+    width: 30%;
+}
+
+.col3 {
+    width: 10%;
+}
+
+.table__detail {
+    background-color: white;
+    border: 1px solid #E1E1E1;
+    border-radius: 10px;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+.table__row {
+    border: 1px solid #E1E1E1;
+}
+
+.table__header {
+    text-align: left;
+    color: #737373;
+    padding: 15px;
+    margin: 0 30px;
+}
+
+.table__data {
+    text-align: center;
+    font-weight: bold;
+}
+
+input[type="time"].icon-del::-webkit-calendar-picker-indicator {
+    /* opacity: 0;
+    pointer-events: none; */
+    /* display: none; */
+    position: absolute;
+    opacity: 0;
+}
+
+input[type="time"].icon-del {
+    -moz-appearance: textfield;
+}
+
+input[type="time"].icon-del {
+    text-align: center;
+    font-weight: bold;
+    position: relative;
+    width: 50%;
+}
+
+.note {
+    width: 85%;
+}
+
+.button {
+    text-align: right;
+    margin-top: 5%;
+}
+
+.form__button {
+    background-color: black;
+    color: white;
+    width: 10%;
+    border-radius: 5px;
+    font-size: large;
+}
+
+.text {
+    color: red;
+    text-align: right;
+}
+
+.form__errors {
+    color: red;
+}

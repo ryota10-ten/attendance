@@ -9,7 +9,7 @@ use Carbon\Carbon;
 class Attendance extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id', 'clock_in', 'clock_out'];
+    protected $fillable = ['user_id', 'clock_in', 'clock_out','note'];
 
     const NOT_STARTED = 'not_started';
     const ON_BREAK = 'on_break';
@@ -24,6 +24,11 @@ class Attendance extends Model
     public function breaks()
     {
         return $this->hasMany(Breaks::class);
+    }
+
+    public function fixRequests()
+    {
+        return $this->hasMany(NewAttendance::class);
     }
 
     public function getStatusAttribute()
@@ -76,7 +81,6 @@ class Attendance extends Model
             ->get()
             ->map(fn($attendance) => $attendance->formatForList());
     }
-
 
     public function formatForList()
     {
@@ -138,4 +142,8 @@ class Attendance extends Model
         return max($totalMinutes - $breakMinutes, 0);
     }
 
+    protected $casts = [
+        'clock_in' => 'datetime',
+        'clock_out' => 'datetime',
+    ];
 }
