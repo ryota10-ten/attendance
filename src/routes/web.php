@@ -4,11 +4,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminIndexController;
 use App\Http\Controllers\AdminListController;
 use App\Http\Controllers\AdminLoginController;
+use App\Http\Controllers\AdminRequestController;
 use App\Http\Controllers\AttendanceEditController;
 use App\Http\Controllers\AttendanceListController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\StaffLoginController;
+use App\Http\Controllers\StaffRequestController;
 use App\Http\Controllers\VerificationController;
 
 /*
@@ -53,3 +55,12 @@ Route::get('/attendance/{id}',[AttendanceEditController::class,'detail'])->name(
 Route::post('/attendance/{id}',[AttendanceEditController::class,'store'])->name('staff.application');
 
 Route::get('/admin/staff/list',[AdminListController::class,'show']);
+
+Route::get('/stamp_correction_request/list', function (){
+})->middleware('route.by.role');
+Route::prefix('admin')->middleware('auth:admin')->group(function () {
+    Route::get('/stamp_correction_request/list',[AdminRequestController::class,'show'])->name('admin.request');
+});
+Route::prefix('staff')->middleware('auth:users')->group(function () {
+    Route::get('/stamp_correction_request/list',[StaffRequestController::class,'show'])->name('staff.request');
+});

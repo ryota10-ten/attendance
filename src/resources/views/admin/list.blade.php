@@ -38,7 +38,7 @@
 </div>
 <div class="table">
     <table class="attendance__table">
-        <tr>
+        <tr class="table__row">
             <th class="table__header">
                 名前
             </th>
@@ -59,7 +59,7 @@
             </th>
         </tr>
         @foreach ($attendances as $attendance)
-        <tr>
+        <tr class="table__row">
             <td class="table__data">
                 {{ $attendance['name'] }}
             </td>
@@ -80,7 +80,7 @@
                     詳細
                 </a>
             </th>
-        </tr>
+        <tr class="table__row">
         @endforeach
     </table>
 </div>
