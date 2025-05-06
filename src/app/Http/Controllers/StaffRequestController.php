@@ -18,6 +18,6 @@ class StaffRequestController extends Controller
             ->where('user_id',$user->id)
             ->where('status', NewAttendance::STATUS_APPROVED)
             ->get();
-        return view ('admin.request',compact('unapproved__lists','approved__lists'));
+        return view ('staff.request',compact('unapproved__lists','approved__lists'));
     }
 }
