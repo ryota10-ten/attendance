@@ -10,14 +10,9 @@ class StaffRequestController extends Controller
     public function show()
     {
         $user = Auth::guard('users')->user();
-        $unapproved__lists = NewAttendance::with(['user'])
-            ->where('user_id',$user->id)
-            ->where('status', NewAttendance::STATUS_PENDING)
-            ->get();
-        $approved__lists = NewAttendance::with(['user'])
-            ->where('user_id',$user->id)
-            ->where('status', NewAttendance::STATUS_APPROVED)
-            ->get();
+        $unapproved__lists = NewAttendance::forUserAndStatus($user->id, NewAttendance::STATUS_PENDING)->get();
+        $approved__lists = NewAttendance::forUserAndStatus($user->id, NewAttendance::STATUS_APPROVED)->get();
+        
         return view ('staff.request',compact('unapproved__lists','approved__lists'));
     }
 }

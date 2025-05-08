@@ -46,7 +46,7 @@ Route::post('/admin/login', [AdminLoginController::class, 'login']);
 Route::post('/admin/logout', [AdminLoginController::class, 'logout']);
 
 Route::get('/admin/attendance/list', [AdminIndexController::class,'list'])->name('admin.list');
-Route::post('/admin/attendance/change-date', [AdminIndexController::class, 'changeDate'])->name('admin.changeDate');
+Route::post('admin/attendance/change-date', [AdminIndexController::class, 'changeDate'])->name('admin.changeDate');
 
 Route::get('/attendance/list', [AttendanceListController::class,'list'])->name('staff.list');
 Route::post('/attendance/change-date', [AttendanceListController::class, 'changeDate'])->name('staff.changeDate');

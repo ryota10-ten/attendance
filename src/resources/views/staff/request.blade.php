@@ -12,15 +12,15 @@
     </h2>
 </div>
 
-<div class="tab_wrap">
-    <input id="tab1" type="radio" name="tab_btn" checked>
-    <input id="tab2" type="radio" name="tab_btn">
-    <div class="tab_area">
-        <label class="tab1_label" for="tab1">承認待ち</label>
-        <label class="tab2_label" for="tab2">承認済み</label>
+<div class="tab">
+    <input id="tab__unapproved" type="radio" name="tab__btn" checked>
+    <input id="tab__approved" type="radio" name="tab__btn">
+    <div class="tab__labels">
+        <label class="tab__unapproved__label" for="tab__unapproved">承認待ち</label>
+        <label class="tab__approved__label" for="tab__approved">承認済み</label>
     </div>
-    <div class="panel_area">
-        <div id="panel1" class="unapproved__list">
+    <div class="tab__panels">
+        <div id="panel__unapproved" class="tab__panel">
             <table class="table">
                 <tr class="table__row">
                     <th class="table__header">
@@ -68,7 +68,7 @@
                 @endforeach
             </table>
         </div>
-        <div id="panel2" class="approved__list">
+        <div id="panel__approved" class="tab__panel">
             <table class="table">
                 <tr class="table__row">
                     <th class="table__header">
