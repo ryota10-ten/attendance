@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminIndexController;
+use App\Http\Controllers\AdminListController;
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\AdminRequestController;
 use App\Http\Controllers\AttendanceEditController;
@@ -53,3 +54,4 @@ Route::get('/attendance/{id}',[AttendanceEditController::class,'detail'])->name(
 Route::post('/attendance/{id}',[AttendanceEditController::class,'store'])->name('staff.application');
 
 Route::get('/stamp_correction_request/list',[AdminRequestController::class,'show'])->name('admin.request');
+Route::get('/admin/staff/list',[AdminListController::class,'show']);
