@@ -33,18 +33,6 @@ class NewAttendance extends Model
             ->first();
     }
 
-    public function scopeWithStatus($query, $status)
-    {
-        return $query->with('user')->where('status', $status);
-    }
-
-    public function scopeForUserAndStatus($query, $userId, $status)
-    {
-        return $query->where('user_id', $userId)
-                    ->where('status', $status)
-                    ->with('user');
-    }
-
     protected $casts = [
         'status' => 'boolean',
         'new_clock_in' => 'datetime',
