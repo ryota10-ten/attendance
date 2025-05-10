@@ -8,7 +8,7 @@
     padding-left: 10px;
 }
 
-.tab_wrap {
+.tab {
     margin: 5% auto;
     width: 70%;
 }
@@ -17,46 +17,39 @@ input[type="radio"] {
     display: none;
 }
 
-.tab_area {
+.tab__labels {
     width: 100%;
-    margin: 0px auto;
+    margin: 0 auto;
     border-bottom: 1px solid #000000;
     padding-bottom: 10px;
 }
 
-.tab1_label {
-    padding: 0 5%;
-    text-align: center;
-    font-size: 12px;
-    cursor: pointer;
-}
-
-.tab2_label {
+.tab__unapproved__label {
     padding: 0 10%;
     text-align: center;
     font-size: 12px;
     cursor: pointer;
 }
 
-#tab1:checked~.tab_area .tab1_label {
+.tab__approved__label {
+    padding: 0 10%;
+    text-align: center;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+#tab__unapproved:checked~.tab__labels .tab__unapproved__label,
+#tab__approved:checked~.tab__labels .tab__approved__label {
     font-weight: bold;
 }
 
-#tab1:checked~.panel_area #panel1 {
+#tab__unapproved:checked~.tab__panels #panel__unapproved,
+#tab__approved:checked~.tab__panels #panel__approved {
     display: flex;
     flex-wrap: wrap;
 }
 
-#tab2:checked~.tab_area .tab2_label {
-    font-weight: bold;
-}
-
-#tab2:checked~.panel_area #panel2 {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.panel_area>div {
+.tab__panels>.tab__panel {
     display: none;
 }
 
@@ -65,7 +58,6 @@ input[type="radio"] {
     border-radius: 10px;
     margin: 5% auto;
     width: 100%;
-    
 }
 
 .table__header {
@@ -89,4 +81,3 @@ input[type="radio"] {
     border: none;
     cursor: pointer;
 }
-
