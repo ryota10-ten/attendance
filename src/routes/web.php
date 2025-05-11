@@ -10,6 +10,7 @@ use App\Http\Controllers\AttendanceListController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\StaffLoginController;
+use App\Http\Controllers\StaffRequestController;
 use App\Http\Controllers\VerificationController;
 
 /*
@@ -45,7 +46,7 @@ Route::post('/admin/login', [AdminLoginController::class, 'login']);
 Route::post('/admin/logout', [AdminLoginController::class, 'logout']);
 
 Route::get('/admin/attendance/list', [AdminIndexController::class,'list'])->name('admin.list');
-Route::post('admin/attendance/change-date', [AdminIndexController::class, 'changeDate'])->name('admin.changeDate');
+Route::post('/admin/attendance/change-date', [AdminIndexController::class, 'changeDate'])->name('admin.changeDate');
 
 Route::get('/attendance/list', [AttendanceListController::class,'list'])->name('staff.list');
 Route::post('/attendance/change-date', [AttendanceListController::class, 'changeDate'])->name('staff.changeDate');
@@ -53,5 +54,13 @@ Route::post('/attendance/change-date', [AttendanceListController::class, 'change
 Route::get('/attendance/{id}',[AttendanceEditController::class,'detail'])->name('staff.detail');
 Route::post('/attendance/{id}',[AttendanceEditController::class,'store'])->name('staff.application');
 
-Route::get('/stamp_correction_request/list',[AdminRequestController::class,'show'])->name('admin.request');
 Route::get('/admin/staff/list',[AdminListController::class,'show']);
+
+Route::get('/stamp_correction_request/list', function (){
+})->middleware('route.by.role');
+Route::prefix('admin')->middleware('auth:admin')->group(function () {
+    Route::get('/stamp_correction_request/list',[AdminRequestController::class,'show'])->name('admin.request');
+});
+Route::prefix('staff')->middleware('auth:users')->group(function () {
+    Route::get('/stamp_correction_request/list',[StaffRequestController::class,'show'])->name('staff.request');
+});

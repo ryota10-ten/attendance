@@ -47,4 +47,10 @@ class NewAttendance extends Model
         return $query->with('user')->where('status', $status);
     }
 
+    public function scopeForUserAndStatus($query, $userId, $status)
+    {
+        return $query->where('user_id', $userId)
+                    ->where('status', $status)
+                    ->with('user');
+    }
 }
