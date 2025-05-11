@@ -10,6 +10,15 @@ class NewAttendance extends Model
     use HasFactory;
     protected $fillable = ['user_id', 'attendance_id', 'new_clock_in', 'new_clock_out', 'new_note', 'status'];
 
+    protected $casts = [
+        'status' => 'boolean',
+        'new_clock_in' => 'datetime',
+        'new_clock_out' => 'datetime',
+    ];
+
+    const STATUS_PENDING = 0;
+    const STATUS_APPROVED = 1;
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -44,13 +53,4 @@ class NewAttendance extends Model
                     ->where('status', $status)
                     ->with('user');
     }
-
-    protected $casts = [
-        'status' => 'boolean',
-        'new_clock_in' => 'datetime',
-        'new_clock_out' => 'datetime',
-    ];
-
-    const STATUS_PENDING = 0;
-    const STATUS_APPROVED = 1;
 }

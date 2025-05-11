@@ -42,25 +42,25 @@
                         詳細
                     </th>
                 </tr>
-                @foreach($unapproved__lists as $unapproved__list)
+                @foreach($unApproved__lists as $unApproved__list)
                 <tr class="table__row">
                     <td class="table__data">
                         承認待ち
                     </td>
                     <td class="table__data">
-                        {{ $unapproved__list['user']['name'] }}
+                        {{ $unApproved__list['user']['name'] }}
                     </td>
                     <td class="table__data">
-                        {{ $unapproved__list['new_clock_in']->format('Y/m/d') }}
+                        {{ $unApproved__list['new_clock_in']->format('Y/m/d') }}
                     </td>
                     <td class="table__data">
-                        {{ $unapproved__list['new_note'] }}
+                        {{ $unApproved__list['new_note'] }}
                     </td>
                     <td class="table__data">
-                        {{ $unapproved__list['created_at']->format('Y/m/d') }}
+                        {{ $unApproved__list['created_at']->format('Y/m/d') }}
                     </td>
                     <td class="table__data">
-                        <a class="table__data" href="/stamp_correction_request/approve/{{ $unapproved__list['id'] }}">
+                        <a class="table__data" href="/stamp_correction_request/approve/{{ $unApproved__list['id'] }}">
                             詳細
                         </a>
                     </td>
