@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminIndexController;
 use App\Http\Controllers\AdminListController;
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\AdminRequestController;
+use App\Http\Controllers\ApprovalController;
 use App\Http\Controllers\AttendanceEditController;
 use App\Http\Controllers\AttendanceListController;
 use App\Http\Controllers\IndexController;
@@ -64,3 +65,6 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
 Route::prefix('staff')->middleware('auth:users')->group(function () {
     Route::get('/stamp_correction_request/list',[StaffRequestController::class,'show'])->name('staff.request');
 });
+
+Route::get('/stamp_correction_request/approve/{id}',[ApprovalController::class,'show'])->name('admin.application');
+Route::post('/stamp_correction_request/approve/{id}',[ApprovalController::class,'approval'])->name('admin.approval');

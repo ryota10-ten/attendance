@@ -53,4 +53,29 @@ class NewAttendance extends Model
                     ->where('status', $status)
                     ->with('user');
     }
+
+    public function approveAndApplyTo(Attendance $attendance)
+    {
+        $this->update(['status' => self::STATUS_APPROVED]);
+
+        $originalDate = $attendance->clock_in->format('Y-m-d');
+
+        $clockIn = $originalDate . ' ' . $this->new_clock_in->format('H:i:s');
+        $clockOut = $originalDate . ' ' . $this->new_clock_out->format('H:i:s');
+
+        $attendance->update([
+            'clock_in' => $clockIn,
+            'clock_out' => $clockOut,
+            'note' => $this->new_note,
+        ]);
+
+        $attendance->breaks()->delete();
+
+        foreach ($this->new_breaks as $break) {
+            $attendance->breaks()->create([
+                'start_time' => $originalDate . ' ' . $break->new_start_time->format('H:i:s'),
+                'end_time'   => $originalDate . ' ' . $break->new_end_time->format('H:i:s'),
+            ]);
+        }
+    }
 }
