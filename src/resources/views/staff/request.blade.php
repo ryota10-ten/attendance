@@ -60,7 +60,7 @@
                         {{ $unApproved__list['created_at']->format('Y/m/d') }}
                     </td>
                     <td class="table__data">
-                        <a class="table__data" href="/stamp_correction_request/approve/{{ $unApproved__list['id'] }}">
+                        <a class="table__data" href="/attendance/{{ $unApproved__list['attendance_id'] }}">
                             詳細
                         </a>
                     </td>
@@ -108,7 +108,7 @@
                         {{ $approved__list['created_at']->format('Y/m/d') }}
                     </td>
                     <td class="table__data">
-                        <a class="table__data" href="/attendance/{{ $approved__list['id'] }}">
+                        <a class="table__data" href="/attendance/{{ $approved__list['attendance_id'] }}">
                             詳細
                         </a>
                     </td>

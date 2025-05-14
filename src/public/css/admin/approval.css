@@ -42,27 +42,16 @@
 }
 
 .table__data {
-    text-align: center;
+    text-align: left;
     font-weight: bold;
 }
 
-input[type="time"].icon-del::-webkit-calendar-picker-indicator {
-    /* opacity: 0;
-    pointer-events: none; */
-    /* display: none; */
-    position: absolute;
-    opacity: 0;
-}
-
-input[type="time"].icon-del {
-    -moz-appearance: textfield;
-}
-
-input[type="time"].icon-del {
-    text-align: center;
+.table__data input {
+    outline: none;
+    border: none;
+    text-align: left;
     font-weight: bold;
-    position: relative;
-    width: 50%;
+    font-size: large;
 }
 
 .note {
@@ -83,8 +72,15 @@ input[type="time"].icon-del {
 }
 
 .text {
-    color: red;
     text-align: right;
+    margin-top: 5%;
+}
+
+.approval__text {
+    background-color: #696969;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
 }
 
 .form__errors {
