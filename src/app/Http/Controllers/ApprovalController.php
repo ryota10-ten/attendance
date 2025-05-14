@@ -21,7 +21,7 @@ class ApprovalController extends Controller
 
     public function approval(Request $request, $attendance_id)
     {
-        $admin = Auth::guard('admin')->user();
+        Auth::guard('admin')->user();
 
         $new_attendance = NewAttendance::with('new_breaks')->findOrFail($request->new_attendance_id);
         $attendance = Attendance::with('breaks')->findOrFail($attendance_id);

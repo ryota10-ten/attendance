@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\EditRequest;
 use App\Models\Attendance;
 use App\Models\NewAttendance;
-use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 

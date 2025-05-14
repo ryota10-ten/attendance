@@ -16,11 +16,11 @@
         @csrf
         <table class=table__detail>
             <colgroup>
-                <col class="col1">
-                <col class="col2">
-                <col class="col3">
-                <col class="col4">
-                <col class="col5">
+                <col class="col__label">
+                <col class="col__input-start">
+                <col class="col__separator">
+                <col class="col__input-end">
+                <col class="col__extra">
             </colgroup>
             <tr class=table__row>
                 <th class=table__header>

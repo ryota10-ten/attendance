@@ -13,11 +13,11 @@
     margin: 0 auto;
 }
 
-.col1 {
+.col__label {
     width: 30%;
 }
 
-.col3 {
+.col__separator {
     width: 10%;
 }
 
