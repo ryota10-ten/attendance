@@ -10,6 +10,7 @@ use App\Http\Controllers\AttendanceEditController;
 use App\Http\Controllers\AttendanceListController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\StaffAttendanceListController;
 use App\Http\Controllers\StaffLoginController;
 use App\Http\Controllers\StaffRequestController;
 use App\Http\Controllers\VerificationController;
@@ -50,7 +51,7 @@ Route::get('/admin/attendance/list', [AdminIndexController::class,'list'])->name
 Route::post('/admin/attendance/change-date', [AdminIndexController::class, 'changeDate'])->name('admin.changeDate');
 
 Route::get('/attendance/list', [AttendanceListController::class,'list'])->name('staff.list');
-Route::post('/attendance/change-date', [AttendanceListController::class, 'changeDate'])->name('staff.changeDate');
+Route::post('/attendance/change-month', [AttendanceListController::class, 'changeMonth'])->name('staff.changeMonth');
 
 Route::get('/attendance/{id}',[AttendanceEditController::class,'detail'])->name('staff.detail');
 Route::post('/attendance/{id}',[AttendanceEditController::class,'store'])->name('staff.application');
@@ -68,3 +69,7 @@ Route::prefix('staff')->middleware('auth:users')->group(function () {
 
 Route::get('/stamp_correction_request/approve/{id}',[ApprovalController::class,'show'])->name('admin.application');
 Route::post('/stamp_correction_request/approve/{id}',[ApprovalController::class,'approval'])->name('admin.approval');
+
+Route::post('/admin/attendance/staff/change-month', [StaffAttendanceListController::class, 'changeMonth'])->name('admin.changeMonth');
+Route::get('/admin/attendance/staff/{id}', [StaffAttendanceListController::class, 'list'])->name('admin.attendanceList');
+Route::get('/admin/attendance/export/{id}', [StaffAttendanceListController::class, 'download'])->name('admin.attendance.export');

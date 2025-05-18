@@ -1,17 +1,17 @@
 @extends('layouts.header')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/staff/list.css') }}">
+<link rel="stylesheet" href="{{ asset('css/admin/staff_attendance_list.css') }}">
 @endsection
 
 @section('content')
 <div class=title>
     <h2 class="title__text">
-        勤怠一覧
+        {{$staff['name']}}さんの勤怠
     </h2>
 </div>
 <div class=calender>
-    <form method="POST" action="{{ route('staff.changeMonth') }}">
+    <form method="POST" action="{{ route('admin.changeMonth') }}">
         @csrf
         <input type="hidden" name="month" value="{{ $date }}">
         <input type="hidden" name="staff_id" value="{{ $staff->id }}">
@@ -20,7 +20,7 @@
         </button>
     </form>
     <div class="calender__date">
-        <form method="POST" action="{{ route('staff.changeMonth') }}">
+        <form method="POST" action="{{ route('admin.changeMonth') }}">
             @csrf
             <label class="calender__label">
                 <img class="calender__icon" src="{{ asset('img/calender.png') }}" alt="カレンダーアイコン" onclick="openCalendar()">
@@ -29,7 +29,7 @@
             </label>
         </form>
     </div>
-    <form method="POST" action="{{ route('staff.changeMonth') }}">
+    <form method="POST" action="{{ route('admin.changeMonth') }}">
         @csrf
         <input type="hidden" name="month" value="{{ $date }}">
         <input type="hidden" name="staff_id" value="{{ $staff->id }}">
@@ -85,6 +85,11 @@
         </tr>
         @endforeach
     </table>
+</div>
+<div class="export">
+    <a href="{{ route('admin.attendance.export', ['id' => $staff->id]) }}" class="export__button">
+        CSV出力
+    </a>
 </div>
 <script>
     function openCalendar() {

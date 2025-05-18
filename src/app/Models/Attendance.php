@@ -72,12 +72,27 @@ class Attendance extends Model
         ];
     }
 
-    public static function getAttendancesForUser($userId, $year, $month)
+    public static function getMonthlyAttendance($userId, $yearMonth)
     {
-        return self::where('user_id', $userId)
-            ->whereYear('clock_in', $year)
-            ->whereMonth('clock_in', $month)
+        $carbonDate = Carbon::createFromFormat('Y-m', $yearMonth);
+        $start = $carbonDate->copy()->startOfMonth();
+        $end = $carbonDate->copy()->endOfMonth();
+        return Attendance::where('user_id', $userId)
+            ->whereBetween('clock_in', [$start, $end])
             ->with(['breaks'])
+            ->get()
+            ->map(fn($attendance) => $attendance->formatForList());
+    }
+
+    public static function getForUserInMonth($userId, $yearMonth)
+    {
+        $date = Carbon::createFromFormat('Y-m', $yearMonth)->startOfMonth();
+        $start = $date->copy();
+        $end = $date->copy()->endOfMonth();
+
+        return self::where('user_id', $userId)
+            ->whereBetween('clock_in', [$start, $end])
+            ->with('breaks')
             ->get()
             ->map(fn($attendance) => $attendance->formatForList());
     }

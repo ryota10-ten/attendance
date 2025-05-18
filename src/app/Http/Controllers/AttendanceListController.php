@@ -11,25 +11,16 @@ class AttendanceListController extends Controller
 {
     public function list()
     {
-        $user = Auth::guard('users')->user();
-        $selectedMonth = session('selected_date', Carbon::now()->format('Y-m'));
+        $staff = Auth::guard('users')->user();
+        $date = session('selected_month', Carbon::today()->format('Y-m'));
+        $attendances = Attendance::getMonthlyAttendance($staff->id, $date);
 
-        [$year, $month] = explode('-', $selectedMonth);
-
-        $attendances = Attendance::getAttendancesForUser($user->id, $year, $month);
-
-        return view('staff.list', compact('selectedMonth','attendances'));
+        return view('staff.list', compact('date','attendances','staff'));
     }
 
-    public function changeDate(Request $request)
+    public function changeMonth(Request $request)
     {
-        $selectedMonth = session('selected_month', Carbon::now()->format('Y-m'));
-
-        if ($request->has('month')) {
-            $selectedMonth = $request->input('month');
-        }
-
-        $date = Carbon::createFromFormat('Y-m', $selectedMonth)->startOfMonth();
+        $date = Carbon::createFromFormat('Y-m', $request->input('month'))->startOfMonth();
 
         if ($request->input('action') === 'prev') {
             $date->subMonth();
@@ -37,7 +28,7 @@ class AttendanceListController extends Controller
             $date->addMonth();
         }
 
-        session(['selected_date' => $date->format('Y-m')]);
+        session(['selected_month' => $date->format('Y-m')]);
 
         return redirect()->route('staff.list');
     }
