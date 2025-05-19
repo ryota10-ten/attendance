@@ -7,7 +7,6 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 
@@ -40,7 +39,6 @@ class StaffAttendanceListController extends Controller
 
     public function download($id)
     {
-        $staff = User::find($id);
         $date = session('selected_month', Carbon::today()->format('Y-m'));
         $attendances = Attendance::getForUserInMonth($id, $date);
         $csvHeader = ['日付', '出勤', '退勤', '休憩', '合計'];

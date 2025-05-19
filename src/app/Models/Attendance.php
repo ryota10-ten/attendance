@@ -92,7 +92,7 @@ class Attendance extends Model
 
         return self::where('user_id', $userId)
             ->whereBetween('clock_in', [$start, $end])
-            ->with('breaks')
+            ->with(['breaks'])
             ->get()
             ->map(fn($attendance) => $attendance->formatForList());
     }
