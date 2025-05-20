@@ -17,15 +17,30 @@ class RouteByRole
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::guard('admin')->check())
-        {
-            return redirect()->route('admin.request');
-        }
-        if (Auth::guard('users')->check())
-        {
-            return redirect()->route('staff.request');
+        $path = $request->path();
+        $method = strtoupper($request->method());
+
+        if ($path === 'stamp_correction_request/list') {
+            if (Auth::guard('admin')->check()) {
+                return redirect()->route('admin.request');
+            } elseif (Auth::guard('users')->check()) {
+                return redirect()->route('staff.request');
+            }
         }
 
-        return redirect('/login');
+        if (preg_match('#^attendance/\d+$#', $path)) {
+            $id = $request->route('id');
+
+            if (Auth::guard('admin')->check()) {
+                $routeName = ($method === 'POST') ? 'admin.update' : 'admin.detail';
+                return redirect()->route($routeName, ['id' => $id]);
+            } elseif (Auth::guard('users')->check()) {
+                $routeName = ($method === 'POST') ? 'staff.application' : 'staff.detail';
+                return redirect()->route($routeName, ['id' => $id]);
+            } else {
+                return redirect('/login');
+            }
+        }
+        return $next($request);
     }
 }

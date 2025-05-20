@@ -12,7 +12,7 @@
 </div>
 
 <div class=content__table>
-    <form class="form__correct" method="post" action="{{ route('staff.application', ['id' => $attendance->id]) }}">
+    <form method="post" action="{{ auth('admin')->check() ? route('admin.update', ['id' => $attendance->id]) : route('staff.application', ['id' => $attendance->id]) }}">
         @csrf
         @if ($errors->any())
             <div class="form__errors">
@@ -152,7 +152,7 @@
                         備考
                     </th>
                     <td class=table__data colspan="3">
-                        <textarea name="new_note" class="note" rows="3">{{ old('new_note') }}</textarea>
+                        <textarea name="new_note" class="note" rows="3">{{ $attendance['note'] }}</textarea>
                     </td>
                 </tr>
             @endif
