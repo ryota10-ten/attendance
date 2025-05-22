@@ -59,7 +59,7 @@
                 </th>
                 <td class=table__data>
                     @if ($pendingFixRequest)
-                        {{ $new_attendance['new_clock_in']->format('H:i')}}
+                        {{ $attendance['clock_in']->format('H:i')}}
                     @else
                         <input type="time" class="icon-del" name="new_clock_in"
                         value="{{ old('new_clock_in',$attendance['clock_in']->format('H:i')) }}">
@@ -70,7 +70,7 @@
                 </td>
                 <td class=table__data>
                     @if ($pendingFixRequest)
-                        {{ $new_attendance['new_clock_out']->format('H:i')}}
+                        {{ $attendance['clock_out']->format('H:i')}}
                     @else
                         <input type="time" class="icon-del" name="new_clock_out"
                         value="{{ old('new_clock_out', $attendance['clock_out']->format('H:i')) }}">
@@ -84,19 +84,19 @@
                             休憩{{ $loop->iteration }}
                         </th>
                         <td class="table__data">
-                            {{ $break['new_start_time']->format('H:i')}}
+                            {{ $break['start_time']->format('H:i')}}
                         </td>
                         <td class="table__data">
                             〜
                         </td>
                         <td class="table__data">
-                            {{ $break['new_end_time']->format('H:i')}}
+                            {{ $break['end_time']->format('H:i')}}
                         </td>
                     </tr>
                 @endforeach
                 <tr class="table__row">
                     <th class="table__header">
-                        休憩{{ $new_breaksCount + 1 }}
+                        休憩{{ $breaksCount + 1 }}
                     </th>
                     <td class="table__data">
                         &nbsp;
@@ -111,7 +111,7 @@
                         備考
                     </th>
                     <td class=table__data>
-                        {{ $new_attendance['new_note']}}
+                        {{ $attendance['note']}}
                     </td>
                 </tr>
             @else

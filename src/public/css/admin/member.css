@@ -33,15 +33,13 @@
 .table__header {
     text-align: center;
     color: #737373;
-    padding: 15px;
-    margin: 0 30px;
+    padding: 10px;
 }
 
 .table__data {
     text-align: center;
     color: #737373;
-    padding: 15px;
-    margin: 0 30px;
+    padding: 10px;
 }
 
 .table__data--detail {
