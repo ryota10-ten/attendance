@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminAttendanceEditController;
 use App\Http\Controllers\AdminIndexController;
 use App\Http\Controllers\AdminListController;
 use App\Http\Controllers\AdminLoginController;
@@ -53,8 +54,17 @@ Route::post('/admin/attendance/change-date', [AdminIndexController::class, 'chan
 Route::get('/attendance/list', [AttendanceListController::class,'list'])->name('staff.list');
 Route::post('/attendance/change-month', [AttendanceListController::class, 'changeMonth'])->name('staff.changeMonth');
 
-Route::get('/attendance/{id}',[AttendanceEditController::class,'detail'])->name('staff.detail');
-Route::post('/attendance/{id}',[AttendanceEditController::class,'store'])->name('staff.application');
+Route::get('/attendance/{id}', fn () => 'redirecting...')
+    ->middleware('route.by.role')
+    ->name('attendance.redirect.get');
+Route::prefix('admin')->middleware('auth:admin')->group(function () {
+    Route::get('/attendance/{id}', [AdminAttendanceEditController::class, 'detail'])->name('admin.detail');
+    Route::post('/attendance/{id}', [AdminAttendanceEditController::class, 'update'])->name('admin.update');
+});
+Route::prefix('staff')->middleware('auth:users')->group(function () {
+    Route::get('/attendance/{id}', [AttendanceEditController::class, 'detail'])->name('staff.detail');
+    Route::post('/attendance/{id}', [AttendanceEditController::class, 'store'])->name('staff.application');
+});
 
 Route::get('/admin/staff/list',[AdminListController::class,'show']);
 
