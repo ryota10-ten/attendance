@@ -35,7 +35,6 @@ class ApplicationsTableSeeder extends Seeder
             $newClockOut = $originalClockOut->copy()->addMinutes(rand(self::CLOCK_OUT_ADD_MIN, self::CLOCK_OUT_ADD_MAX));
             $newAttendance = NewAttendance::create([
                 'attendance_id' => $attendance->id,
-                'user_id' => $attendance->user_id,
                 'new_clock_in' => $newClockIn,
                 'new_clock_out' => $newClockOut,
                 'new_note' => 'テスト用の修正申請',
