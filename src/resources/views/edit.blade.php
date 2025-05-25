@@ -78,34 +78,24 @@
                 </td>
             </tr>
             @if ($pendingFixRequest)
-                @foreach ($new_attendance->new_breaks as $i => $break)
-                    <tr class="table__row">
-                        <th class="table__header">
-                            休憩{{ $loop->iteration }}
-                        </th>
-                        <td class="table__data">
-                            {{ $break['start_time']->format('H:i')}}
-                        </td>
-                        <td class="table__data">
-                            〜
-                        </td>
-                        <td class="table__data">
-                            {{ $break['end_time']->format('H:i')}}
-                        </td>
-                    </tr>
-                @endforeach
-                <tr class="table__row">
-                    <th class="table__header">
-                        休憩{{ $breaksCount + 1 }}
-                    </th>
-                    <td class="table__data">
-                        &nbsp;
-                    </td>
-                    <td class="table__data">〜</td>
-                    <td class="table__data">
-                        &nbsp;
-                    </td>
-                </tr>
+                @if ($attendance->breaks->isNotEmpty())
+                    @foreach ($attendance->breaks as $i => $break)
+                        <tr class="table__row">
+                            <th class="table__header">
+                                休憩{{ $loop->iteration }}
+                            </th>
+                            <td class="table__data">
+                                {{ optional($break['start_time'])->format('H:i')}}
+                            </td>
+                            <td class="table__data">
+                                〜
+                            </td>
+                            <td class="table__data">
+                                {{ optional($break['end_time'])->format('H:i')}}
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
                 <tr class=table__row>
                     <th class=table__header>
                         備考

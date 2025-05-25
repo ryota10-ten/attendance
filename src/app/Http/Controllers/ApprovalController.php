@@ -13,7 +13,7 @@ class ApprovalController extends Controller
     {
         $admin = Auth::guard('admin')->user();
 
-        $new_attendance = NewAttendance::with(['new_breaks','user'])->findOrFail($id);
+        $new_attendance = NewAttendance::with(['new_breaks','attendance.user'])->findOrFail($id);
         $breaksCount = $new_attendance->new_breaks->count();
 
         return view('admin.approval',compact('admin','breaksCount','new_attendance'));

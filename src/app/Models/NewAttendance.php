@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class NewAttendance extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id', 'attendance_id', 'new_clock_in', 'new_clock_out', 'new_note', 'status'];
+    protected $fillable = ['attendance_id', 'new_clock_in', 'new_clock_out', 'new_note', 'status'];
 
     protected $casts = [
         'status' => 'boolean',
@@ -18,11 +18,6 @@ class NewAttendance extends Model
 
     const STATUS_PENDING = 0;
     const STATUS_APPROVED = 1;
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
 
     public function new_breaks()
     {
@@ -42,16 +37,13 @@ class NewAttendance extends Model
             ->first();
     }
 
-    public function scopeWithStatus($query, $status)
-    {
-        return $query->with('user')->where('status', $status);
-    }
-
     public function scopeForUserAndStatus($query, $userId, $status)
     {
-        return $query->where('user_id', $userId)
-                    ->where('status', $status)
-                    ->with('user');
+        return $query->where('status', $status)
+            ->whereHas('attendance', function ($q) use ($userId) {
+                $q->where('user_id', $userId);
+            })
+            ->with('attendance.user');
     }
 
     public function approveAndApplyTo(Attendance $attendance)

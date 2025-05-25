@@ -48,7 +48,7 @@
                         承認待ち
                     </td>
                     <td class="table__data">
-                        {{ $unApproved__list['user']['name'] }}
+                        {{ $unApproved__list->attendance->user->name }}
                     </td>
                     <td class="table__data">
                         {{ $unApproved__list['new_clock_in']->format('Y/m/d') }}
@@ -96,7 +96,7 @@
                         承認済み
                     </td>
                     <td class="table__data">
-                        {{$approved__list['user']['name']}}
+                        {{$approved__list->attendance->user->name}}
                     </td>
                     <td class="table__data">
                         {{ $approved__list['new_clock_in']->format('Y/m/d') }}
