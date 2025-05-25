@@ -15,7 +15,6 @@ class CreateNewAttendancesTable extends Migration
     {
         Schema::create('new_attendances', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('attendance_id')->constrained()->onUpdate('cascade');
             $table->string('new_note');
             $table->dateTime('new_clock_in');

@@ -27,7 +27,7 @@
                     名前
                 </th>
                 <td class=table__data>
-                    {{ $new_attendance['user']['name'] }}
+                    {{ $new_attendance->attendance->user->name }}
                     <input type="hidden" name="new_attendance_id" value="{{ $new_attendance['id']}}" readonly />
                 </td>
             </tr>

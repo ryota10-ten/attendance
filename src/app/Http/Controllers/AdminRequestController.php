@@ -10,8 +10,11 @@ class AdminRequestController extends Controller
     public function show()
     {
         $user = Auth::guard('admin')->user();
-        $unApproved__lists = NewAttendance::withStatus(NewAttendance::STATUS_PENDING)->get();
-        $approved__lists = NewAttendance::withStatus(NewAttendance::STATUS_APPROVED)->get();
+        $unApproved__lists = NewAttendance::where('status',NewAttendance::STATUS_PENDING)
+        ->with('attendance.user')->get();
+
+        $approved__lists = NewAttendance::where('status',NewAttendance::STATUS_APPROVED)
+        ->with('attendance.user')->get();
         return view ('admin.request',compact('unApproved__lists','approved__lists'));
     }
 }
