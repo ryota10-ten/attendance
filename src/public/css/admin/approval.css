@@ -1,0 +1,88 @@
+.title {
+    border-left: 5px solid;
+    margin: 5% auto;
+    width: 70%;
+}
+
+.title__text {
+    padding-left: 10px;
+}
+
+.content__table {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.col__label {
+    width: 30%;
+}
+
+.col__separator {
+    width: 10%;
+}
+
+.table__detail {
+    background-color: white;
+    border: 1px solid #E1E1E1;
+    border-radius: 10px;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+.table__row {
+    border: 1px solid #E1E1E1;
+}
+
+.table__header {
+    text-align: left;
+    color: #737373;
+    padding: 15px;
+    margin: 0 30px;
+}
+
+.table__data {
+    text-align: left;
+    font-weight: bold;
+}
+
+.table__data input {
+    outline: none;
+    border: none;
+    text-align: left;
+    font-weight: bold;
+    font-size: large;
+}
+
+.note {
+    width: 85%;
+}
+
+.button {
+    text-align: right;
+    margin-top: 5%;
+}
+
+.form__button {
+    background-color: black;
+    color: white;
+    width: 10%;
+    border-radius: 5px;
+    font-size: large;
+}
+
+.text {
+    text-align: right;
+    margin-top: 5%;
+}
+
+.approval__text {
+    background-color: #696969;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.form__errors {
+    color: red;
+}

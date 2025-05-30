@@ -1,3 +1,7 @@
+.content__page {
+    background-color: #F0EFF2;
+}
+
 .header {
     width: 100%;
 }
@@ -5,12 +9,29 @@
 .header__inner {
     background-color: black;
     padding: 20px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.header__logo {
-    padding: 5px 5px;
+.header__buttons {
     display: flex;
-    justify-content: left;
+    gap: 10px;
+}
+
+.header__buttons a {
+    text-decoration: none;
+    color: white;
+    font-size: 15px;
+    padding: 0 10px;
+}
+
+.header__button--logout {
+    background-color: black;
+    color: #FFF;
+    border: none;
+    font-size: 15px;
+    cursor: pointer;
 }
 
 .content {

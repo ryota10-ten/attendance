@@ -5,7 +5,6 @@
 @endsection
 
 @section('content')
-
 <h1 class="content__title">
     ログイン
 </h1>
@@ -25,7 +24,7 @@
             @error('password')
                 {{ $message }}
             @enderror
-        </div>
+            </div>
         <button class="form__login--button" type="submit">
             ログインする
         </button>
