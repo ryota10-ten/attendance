@@ -20,7 +20,7 @@ class StatusTest extends TestCase
     public function test_NOT_STARTED()
     {
         $user = User::factory()->create();
-        $response = $this->actingAs($user)->get('/attendance');
+        $response = $this->actingAs($user, 'users')->get('/attendance');
 
         $response
             ->assertStatus(200)
@@ -31,7 +31,7 @@ class StatusTest extends TestCase
     {
         $user = User::factory()->create();
         $response = $this->followingRedirects()
-                ->actingAs($user)
+                ->actingAs($user, 'users')
                 ->post('/attendance/clock-in');
 
         $response
@@ -50,7 +50,7 @@ class StatusTest extends TestCase
             'start_time' => now()->subMinutes(10),
         ]);
 
-        $response = $this->actingAs($user)->get('/attendance');
+        $response = $this->actingAs($user, 'users')->get('/attendance');
 
         $response
             ->assertStatus(200)
@@ -66,7 +66,7 @@ class StatusTest extends TestCase
             'clock_out' => now()->subHour(),
         ]);
 
-        $response = $this->actingAs($user)->get('/attendance');
+        $response = $this->actingAs($user, 'users')->get('/attendance');
 
         $response
             ->assertStatus(200)

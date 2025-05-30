@@ -21,7 +21,7 @@ class DateAcquisitionTest extends TestCase
     {
         Carbon::setTestNow($now = Carbon::create(2025, 5, 28, 15, 0));
         $user = User::factory()->create();
-        $response = $this->actingAs($user)->get('/attendance');
+        $response = $this->actingAs($user, 'users')->get('/attendance');
         $expectedDate = $now->isoFormat('YYYY年M月D日(ddd)');
         $expectedTime = $now->format('H:i');
 

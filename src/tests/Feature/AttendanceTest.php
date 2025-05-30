@@ -21,14 +21,14 @@ class AttendanceTest extends TestCase
     public function test_attendance_function()
     {
         $user = User::factory()->create();
-        $response = $this->actingAs($user)->get('/attendance');
+        $response = $this->actingAs($user, 'users')->get('/attendance');
         $response
             ->assertStatus(200)
             ->assertSee('出勤');
 
-        $response = $this->actingAs($user)->post('/attendance/clock-in');
+        $response = $this->actingAs($user, 'users')->post('/attendance/clock-in');
         $response->assertRedirect('/attendance');
-        $response = $this->actingAs($user)->get('/attendance');
+        $response = $this->actingAs($user, 'users')->get('/attendance');
         $response
             ->assertStatus(200)
             ->assertSee('出勤中');
@@ -43,7 +43,7 @@ class AttendanceTest extends TestCase
             'clock_in' => $now->copy()->subHours(2),
             'clock_out' => $now->copy()->subHour(),
         ]);
-        $response = $this->actingAs($user)->get('/attendance');
+        $response = $this->actingAs($user, 'users')->get('/attendance');
 
         $response
             ->assertStatus(200)
@@ -54,12 +54,12 @@ class AttendanceTest extends TestCase
     {
         Carbon::setTestNow($now = Carbon::create(2025, 5, 28, 15, 0));
         $user = User::factory()->create();
-        $response = $this->actingAs($user)->post('/attendance/clock-in');
+        $response = $this->actingAs($user, 'users')->post('/attendance/clock-in');
         $this->assertDatabaseHas('attendances', [
             'user_id' => $user->id,
             'clock_in' => $now->toDateTimeString(),
         ]);
-        $response = $this->actingAs($user)->get('/attendance/list');
+        $response = $this->actingAs($user, 'users')->get('/attendance/list');
         $response
             ->assertStatus(200)
             ->assertSee($now->format('H:i'));

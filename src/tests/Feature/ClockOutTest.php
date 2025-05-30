@@ -26,13 +26,13 @@ class ClockOutTest extends TestCase
             'user_id' => $user->id,
             'clock_in' => $now->copy()->subHours(2),
         ]);
-        $response = $this->actingAs($user)->get('/attendance');
+        $response = $this->actingAs($user, 'users')->get('/attendance');
         $response
             ->assertStatus(200)
             ->assertSee('退勤');
-        $response = $this->actingAs($user)->post('/attendance/clock-out');
+        $response = $this->actingAs($user, 'users')->post('/attendance/clock-out');
         $response->assertRedirect('/attendance');
-        $response = $this->actingAs($user)->get('/attendance');
+        $response = $this->actingAs($user, 'users')->get('/attendance');
         $response
             ->assertStatus(200)
             ->assertSee('退勤済');
@@ -42,16 +42,16 @@ class ClockOutTest extends TestCase
     {
         Carbon::setTestNow($now = Carbon::create(2025, 5, 28, 15, 0));
         $user = User::factory()->create();
-        $response = $this->actingAs($user)->post('/attendance/clock-in');
+        $response = $this->actingAs($user, 'users')->post('/attendance/clock-in');
         $response->assertRedirect('/attendance');
-        $response = $this->actingAs($user)->post('/attendance/clock-out');
+        $response = $this->actingAs($user, 'users')->post('/attendance/clock-out');
         
         $this->assertDatabaseHas('attendances', [
             'user_id' => $user->id,
             'clock_in' => $now->copy()->toDateTimeString(),
             'clock_out' => $now->copy()->toDateTimeString(),
         ]);
-        $response = $this->actingAs($user)->get('/attendance/list');
+        $response = $this->actingAs($user, 'users')->get('/attendance/list');
         $response
             ->assertStatus(200)
             ->assertSee($now->format('H:i'));

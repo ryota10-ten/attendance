@@ -31,8 +31,8 @@ class StaffEditTest extends TestCase
             'clock_out' => $date->copy(),
         ]);
 
-        $response = $this->actingAs($user)->get(route('staff.detail', ['id' => $attendance->id]));
-        $response = $this->actingAs($user)->post(route('staff.application', ['id' => $attendance->id]),[
+        $response = $this->actingAs($user, 'users')->get(route('staff.detail', ['id' => $attendance->id]));
+        $response = $this->actingAs($user, 'users')->post(route('staff.application', ['id' => $attendance->id]),[
             'new_clock_in' => $date->copy()->addHours(1)->format('H:i'),
             'new_clock_out' => $date->copy()->format('H:i'),
         ]);
@@ -51,7 +51,7 @@ class StaffEditTest extends TestCase
             'clock_in' => $date->copy()->subHours(3),
             'clock_out' => $date->copy(),
         ]);
-        $this->actingAs($user);
+        $this->actingAs($user, 'users');
         $response = $this->post(route('staff.application', ['id' => $attendance->id]), [
             'new_clock_in' => '07:00',
             'new_clock_out' => '10:00',
@@ -79,7 +79,7 @@ class StaffEditTest extends TestCase
             'clock_in' => $date->copy()->subHours(3),
             'clock_out' => $date->copy(),
         ]);
-        $this->actingAs($user);
+        $this->actingAs($user, 'users');
         $response = $this->post(route('staff.application', ['id' => $attendance->id]), [
             'new_clock_in' => '07:00',
             'new_clock_out' => '10:00',
@@ -107,7 +107,7 @@ class StaffEditTest extends TestCase
             'clock_in' => $date->copy()->subHours(3),
             'clock_out' => $date->copy(),
         ]);
-        $this->actingAs($user);
+        $this->actingAs($user, 'users');
         $response = $this->post(route('staff.application', ['id' => $attendance->id]), [
             'new_clock_in' => '07:00',
             'new_clock_out' => '10:00',
@@ -134,7 +134,7 @@ class StaffEditTest extends TestCase
             'clock_in' => $date->copy()->subHours(3),
             'clock_out' => $date->copy(),
         ]);
-        $this->actingAs($user);
+        $this->actingAs($user, 'users');
         $response = $this->post(route('staff.application', ['id' => $attendance->id]), [
             'new_clock_in' => '07:00',
             'new_clock_out' => '10:00',
@@ -171,7 +171,7 @@ class StaffEditTest extends TestCase
             'clock_in' => $date->copy()->subHours(3),
             'clock_out' => $date->copy(),
         ]);
-        $this->actingAs($user);
+        $this->actingAs($user, 'users');
         $response = $this->post(route('staff.application', ['id' => $attendance->id]), [
             'new_clock_in' => '07:00',
             'new_clock_out' => '10:00',
@@ -185,7 +185,7 @@ class StaffEditTest extends TestCase
         ]);
         $request = NewAttendance::where('attendance_id', $attendance->id)->first();
 
-        $this->actingAs($user)
+        $this->actingAs($user, 'users')
             ->get(route('staff.request'))
             ->assertStatus(200)
             ->assertSee($attendance->clock_in->format('Y/m/d'))

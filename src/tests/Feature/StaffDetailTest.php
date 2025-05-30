@@ -28,7 +28,7 @@ class StaffDetailTest extends TestCase
             'user_id' => $user->id,
         ]);
 
-        $response = $this->actingAs($user)->get(route('staff.detail', ['id' => $attendance->id]));
+        $response = $this->actingAs($user, 'users')->get(route('staff.detail', ['id' => $attendance->id]));
         $response
             ->assertStatus(200)
             ->assertSee('田中');
@@ -43,7 +43,7 @@ class StaffDetailTest extends TestCase
             'clock_in' => $date->copy()->setTime(9, 0),
         ]);
 
-        $response = $this->actingAs($user)->get(route('staff.detail', ['id' => $attendance->id]));
+        $response = $this->actingAs($user, 'users')->get(route('staff.detail', ['id' => $attendance->id]));
         $response
             ->assertStatus(200)
             ->assertSee($date->format('Y年'))
@@ -60,7 +60,7 @@ class StaffDetailTest extends TestCase
             'clock_out' => $date->copy()->subHour(),
         ]);
 
-        $response = $this->actingAs($user)->get(route('staff.detail', ['id' => $attendance->id]));
+        $response = $this->actingAs($user, 'users')->get(route('staff.detail', ['id' => $attendance->id]));
         $response
             ->assertStatus(200)
             ->assertSee($attendance->clock_in->format('H:i'))
@@ -82,7 +82,7 @@ class StaffDetailTest extends TestCase
             'end_time' => $date->copy()->subHours(1)->subMinutes(30),
         ]);
 
-        $response = $this->actingAs($user)->get(route('staff.detail', ['id' => $attendance->id]));
+        $response = $this->actingAs($user, 'users')->get(route('staff.detail', ['id' => $attendance->id]));
         $response
             ->assertStatus(200)
             ->assertSee($break1->start_time->format('H:i'))

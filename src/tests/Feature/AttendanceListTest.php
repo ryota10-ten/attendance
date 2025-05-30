@@ -25,7 +25,7 @@ class AttendanceListTest extends TestCase
             'user_id' => $user->id,
         ]);
 
-        $response = $this->actingAs($user)->get('/attendance/list');
+        $response = $this->actingAs($user, 'users')->get('/attendance/list');
         $response -> assertStatus(200);
         $response->assertSee($attendance->clock_in->format('H:i'));
     }
@@ -37,7 +37,7 @@ class AttendanceListTest extends TestCase
         $attendances = Attendance::factory()->count(3)->create([
             'user_id' => $user->id,
         ]);
-        $response = $this->actingAs($user)->get('/attendance/list');
+        $response = $this->actingAs($user, 'users')->get('/attendance/list');
 
         $response 
             -> assertStatus(200)
@@ -48,13 +48,13 @@ class AttendanceListTest extends TestCase
     {
         Carbon::setTestNow($now = Carbon::create(2025, 5, 28, 15, 0));
         $user = User::factory()->create();
-        $response = $this->actingAs($user)->get('/attendance/list');
-        $this->actingAs($user)->post(route('staff.changeMonth'), [
+        $response = $this->actingAs($user, 'users')->get('/attendance/list');
+        $this->actingAs($user, 'users')->post(route('staff.changeMonth'), [
             'month' => $now->format('Y-m'), 
             'staff_id' => $user->id,
             'action' => 'prev',])->assertRedirect('/attendance/list');
         
-        $response = $this->actingAs($user)->get('/attendance/list');
+        $response = $this->actingAs($user, 'users')->get('/attendance/list');
 
         $response 
             -> assertStatus(200)
@@ -65,13 +65,13 @@ class AttendanceListTest extends TestCase
     {
         Carbon::setTestNow($now = Carbon::create(2025, 5, 28, 15, 0));
         $user = User::factory()->create();
-        $response = $this->actingAs($user)->get('/attendance/list');
-        $this->actingAs($user)->post(route('staff.changeMonth'), [
+        $response = $this->actingAs($user, 'users')->get('/attendance/list');
+        $this->actingAs($user, 'users')->post(route('staff.changeMonth'), [
             'month' => $now->format('Y-m'),
             'staff_id' => $user->id,
             'action' => 'next',])->assertRedirect('/attendance/list');
         
-        $response = $this->actingAs($user)->get('/attendance/list');
+        $response = $this->actingAs($user, 'users')->get('/attendance/list');
 
         $response 
             -> assertStatus(200)
@@ -85,9 +85,9 @@ class AttendanceListTest extends TestCase
         $attendances = Attendance::factory()->count(3)->create([
             'user_id' => $user->id,
         ]);
-        $this->actingAs($user)->get('/attendance/list');
+        $this->actingAs($user, 'users')->get('/attendance/list');
 
-        $response = $this->actingAs($user)->get('/attendance/$attendance->id');
+        $response = $this->actingAs($user, 'users')->get('/attendance/$attendance->id');
         $response -> assertStatus(200);
     }
 }

@@ -36,7 +36,7 @@ class VerificationTest extends TestCase
     public function test_verification_show()
     {
         $user = User::factory()->unverified()->create();
-        $this->actingAs($user);
+        $this->actingAs($user, 'users');
 
         $response = $this->get(route('verification.notice'));
         $response->assertStatus(200);
@@ -54,7 +54,7 @@ class VerificationTest extends TestCase
             ['id' => $user->id, 'hash' => sha1($user->email)]
         );
 
-        $response = $this->actingAs($user)->get($verificationUrl);
+        $response = $this->actingAs($user, 'users')->get($verificationUrl);
 
         $response->assertRedirect('/attendance');
 
