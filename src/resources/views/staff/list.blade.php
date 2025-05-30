@@ -67,21 +67,21 @@
             </td>
             <td class="table__data">
                 {{ $attendance['clock_in'] }}
-            </th>
+            </td>
             <td class="table__data">
                 {{ $attendance['clock_out'] ?? '-' }}
             </th>
             <td class="table__data">
                 {{ $attendance['break_time'] }}
-            </th>
+            </td>
             <td class="table__data">
                 {{ $attendance['work_time'] }}
-            </th>
+            </td>
             <td class="table__data">
                 <a class="table__data" href="/attendance/{{ $attendance['id'] }}">
                     詳細
                 </a>
-            </th>
+            </td>
         </tr>
         @endforeach
     </table>

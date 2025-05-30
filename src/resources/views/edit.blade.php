@@ -59,7 +59,7 @@
                 </th>
                 <td class=table__data>
                     @if ($pendingFixRequest)
-                        {{ $attendance['clock_in']->format('H:i')}}
+                        {{ $new_attendance['new_clock_in']->format('H:i')}}
                     @else
                         <input type="time" class="icon-del" name="new_clock_in"
                         value="{{ old('new_clock_in',$attendance['clock_in']->format('H:i')) }}">
@@ -70,7 +70,7 @@
                 </td>
                 <td class=table__data>
                     @if ($pendingFixRequest)
-                        {{ $attendance['clock_out']->format('H:i')}}
+                        {{ $new_attendance['new_clock_out']->format('H:i')}}
                     @else
                         <input type="time" class="icon-del" name="new_clock_out"
                         value="{{ old('new_clock_out', $attendance['clock_out']->format('H:i')) }}">
@@ -78,20 +78,20 @@
                 </td>
             </tr>
             @if ($pendingFixRequest)
-                @if ($attendance->breaks->isNotEmpty())
-                    @foreach ($attendance->breaks as $i => $break)
+                @if ($new_attendance->new_breaks->isNotEmpty())
+                    @foreach ($new_attendance->new_breaks as $i => $new_break)
                         <tr class="table__row">
                             <th class="table__header">
                                 休憩{{ $loop->iteration }}
                             </th>
                             <td class="table__data">
-                                {{ optional($break['start_time'])->format('H:i')}}
+                                {{ optional($new_break['new_start_time'])->format('H:i')}}
                             </td>
                             <td class="table__data">
                                 〜
                             </td>
                             <td class="table__data">
-                                {{ optional($break['end_time'])->format('H:i')}}
+                                {{ optional($new_break['new_end_time'])->format('H:i')}}
                             </td>
                         </tr>
                     @endforeach
@@ -101,7 +101,7 @@
                         備考
                     </th>
                     <td class=table__data>
-                        {{ $attendance['note']}}
+                        {{ $new_attendance['new_note']}}
                     </td>
                 </tr>
             @else

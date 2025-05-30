@@ -12,7 +12,7 @@
     @if ($status === Attendance::NOT_STARTED)
         勤務外
     @elseif ($status === Attendance::WORKING)
-        勤務中
+        出勤中
     @elseif ($status === Attendance::ON_BREAK)
         休憩中
     @elseif ($status === Attendance::FINISHED)

@@ -38,7 +38,7 @@ class EditRequest extends FormRequest
         return [
             'new_clock_in.required'  => '出勤時間を入力してください。',
             'new_clock_out.required' => '退勤時間を入力してください。',
-            'new_note.required'      => '備考を記入してください。',
+            'new_note.required'      => '備考を記入してください',
         ];
     }
 

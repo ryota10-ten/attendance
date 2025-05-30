@@ -66,7 +66,7 @@ Route::prefix('staff')->middleware('auth:users')->group(function () {
     Route::post('/attendance/{id}', [AttendanceEditController::class, 'store'])->name('staff.application');
 });
 
-Route::get('/admin/staff/list',[AdminListController::class,'show']);
+Route::get('/admin/staff/list',[AdminListController::class,'show'])->name('admin.staff.list');
 
 Route::get('/stamp_correction_request/list', function (){
 })->middleware('route.by.role');
